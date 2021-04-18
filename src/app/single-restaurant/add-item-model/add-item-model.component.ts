@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Meal } from '../single-rasturant.component';
+import { Meal } from '../single-restaurant.component';
 import { CartService } from 'src/app/services/cart.service';
 
 @Component({

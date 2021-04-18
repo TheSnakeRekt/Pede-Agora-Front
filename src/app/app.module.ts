@@ -45,7 +45,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './shared/login/login.component';
 import { SignupComponent } from './shared/signup/signup.component';
-import { SingleRasturantComponent } from './single-rasturant/single-rasturant.component';
+import { SingleRestaurantComponent } from './single-restaurant/single-restaurant.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import {FormsModule} from '@angular/forms';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
@@ -58,7 +58,7 @@ import { PaymentsComponent } from './account/payments/payments.component';
 import { AddressesComponent } from './account/addresses/addresses.component';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
-import { AddItemModelComponent } from './single-rasturant/add-item-model/add-item-model.component';
+import { AddItemModelComponent } from './single-restaurant/add-item-model/add-item-model.component';
 import { DelayInterceptor } from './services/delay-interceptor.service';
 const skltnConfig: SkltnConfig = {
   rectRadius: 10,
@@ -74,7 +74,7 @@ const skltnConfig: SkltnConfig = {
     HomeComponent,
     LoginComponent,
     SignupComponent,
-    SingleRasturantComponent,
+    SingleRestaurantComponent,
     CheckoutComponent,
     SheduledDeliverModelComponent,
     FavouritesComponent,

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Meal } from '../single-rasturant/single-rasturant.component';
+import { Meal } from '../single-restaurant/single-restaurant.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RasturantService {
+export class RestaurantService {
 
   api = "http://localhost:3000";
 

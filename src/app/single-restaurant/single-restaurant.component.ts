@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { AddItemModelComponent } from './add-item-model/add-item-model.component';
 import { MatDialog } from '@angular/material';
-import { RasturantService } from '../services/rasturant.service';
+import { RestaurantService } from '../services/restaurant.service';
 import { CartService } from '../services/cart.service';
 
 @Component({
-  selector: 'app-single-rasturant',
-  templateUrl: './single-rasturant.component.html',
-  styleUrls: ['./single-rasturant.component.scss']
+  selector: 'app-single-restaurant',
+  templateUrl: './single-restaurant.component.html',
+  styleUrls: ['./single-restaurant.component.scss']
 })
-export class SingleRasturantComponent implements OnInit {
+export class SingleRestaurantComponent implements OnInit {
 
   meals: any;
   cart = Array();
   loader = Array(8);
   constructor(
     public dialog: MatDialog,
-    private resturantService: RasturantService,
+    private resturantService: RestaurantService,
     private cartService: CartService
   ) { }
 

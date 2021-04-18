@@ -8,7 +8,7 @@ import { FavouritesComponent } from './account/favourites/favourites.component';
 import { OrdersComponent } from './account/orders/orders.component';
 import { PaymentsComponent } from './account/payments/payments.component';
 import { AddressesComponent } from './account/addresses/addresses.component';
-import { SingleRasturantComponent } from './single-rasturant/single-rasturant.component';
+import { SingleRestaurantComponent } from './single-restaurant/single-restaurant.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 
 
@@ -17,7 +17,7 @@ const routes: Routes = [
     path: 'home', component: HomeComponent
   },
   {
-    path: 'restaurants/:id', component: SingleRasturantComponent
+    path: 'restaurants/:id', component: SingleRestaurantComponent
   },
   {
     path: 'login', component: LoginComponent

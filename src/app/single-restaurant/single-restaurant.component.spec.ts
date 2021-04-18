@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SingleRasturantComponent } from './single-rasturant.component';
+import { SingleRestaurantComponent } from './single-restaurant.component';
 
 describe('SingleRasturantComponent', () => {
-  let component: SingleRasturantComponent;
-  let fixture: ComponentFixture<SingleRasturantComponent>;
+  let component: SingleRestaurantComponent;
+  let fixture: ComponentFixture<SingleRestaurantComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SingleRasturantComponent ]
+      declarations: [ SingleRestaurantComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SingleRasturantComponent);
+    fixture = TestBed.createComponent(SingleRestaurantComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

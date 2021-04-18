@@ -2,12 +2,29 @@
     margin-top: 100px;
     width: 100%;
     min-height: 450px;
-    .body{
-        position: absolute;
-        top: 15%;
-        left: 32%;;
-        width: 500px;
-        display: flex;
-        flex-direction: column;
-    }
+    display: flex;
+    justify-content: center;
 }
+a{
+    color: rgb(204, 160, 40);
+    text-decoration-color: rgb(204, 160, 40);
+}
+
+.fadeIn {
+    -webkit-animation-duration: 3s;
+    animation-duration: 3s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+}
+
+@-webkit-keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+ }
+
+@keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+} 

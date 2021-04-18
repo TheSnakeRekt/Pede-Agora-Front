@@ -1,22 +1,25 @@
 <div class="login-container">
-    <div class="body">
+    <div>
         <div style="width: 100%; text-align: center; margin-bottom: 30px;">
-            <img height="32px"
-                src="https://d3i4yxtzktqr9n.cloudfront.net/web-eats-v2/f8f0721f871b3704cce92eb96bc6e504.svg">
+            <img src="../../../assets/logo_orig.png" class="fadeIn">
         </div>
-        <h1 style="margin: 40px 0px; width: 100%;">Welcome back</h1>
-        <span>Sign in with your email address or mobile number</span>
+        <h1 style="margin: 40px 0px; width: 100%;">Bem Vindo</h1>
+        <span>Entre com o seu numero de télemovel ou endereço e-mail</span>
         <div class="login-input-box">
             <mat-form-field appearance="outline" class="input-box full-width" style="margin-top: 10px;">
-                <mat-label>Mobile number</mat-label>
-                <input matInput placeholder="Mobile number" class="input-text">
+                <mat-label>Numero de Télemovel</mat-label>
+                <input matInput placeholder="Numero de Télemovel" class="input-text">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="input-box full-width" style="margin-top: 10px;">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput placeholder="Password" class="input-text">
             </mat-form-field>
         </div>
-        <button mat-raised-button class="full-width full-height success-background " style="height: 45px;" (click)= "login()">
+        <button mat-raised-button class="full-width full-height accent-background" style="height: 45px;" (click)= "login()">
             Login
         </button>
         <div style="text-align: center; margin-top: 15px;">
-            <span>New to Uber? </span> <span><a [routerLink]="['/signup']" routerLinkActive="active">Create an account</a></span>
+            <span>Novo na Pede agora? </span> <span><a [routerLink]="['/signup']" routerLinkActive="active">Criar uma conta</a></span>
         </div>
     </div>
 </div>

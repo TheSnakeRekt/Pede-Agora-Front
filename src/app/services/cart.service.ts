@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Meal } from '../single-rasturant/single-rasturant.component';
+import { Meal } from '../single-restaurant/single-restaurant.component';
 
 @Injectable({
   providedIn: 'root'

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RasturantService } from '../services/rasturant.service';
+import { RestaurantService } from '../services/restaurant.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
   restaurantes = new Array();
   loaderRestaurant = new Array(3);
   tags = new Array();
-  constructor(private resturantService: RasturantService, private router: Router) { }
+  constructor(private resturantService: RestaurantService, private router: Router) { }
 
   ngOnInit() {
     this.resturantService.getRestaurants().subscribe(res=>{
