@@ -1,0 +1,16 @@
+.home-container{
+    margin-top: 100px;
+    background: #fff;
+    padding: 0px 70px;
+}
+
+.img-box{
+    border-radius: 40%;
+    width: 350px;
+    height: 240px;
+    transition: 100ms linear; 
+}
+
+.img-box:hover {
+    transform: scale(1.04);
+}
