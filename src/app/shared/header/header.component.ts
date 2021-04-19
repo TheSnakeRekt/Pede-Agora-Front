@@ -1,14 +1,11 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { ProfileService } from 'src/app/services/profile.service';
 import { MatDialog } from '@angular/material';
 import { SheduledDeliverModelComponent } from '../sheduled-deliver-model/sheduled-deliver-model.component';
-import { CartService } from 'src/app/services/cart.service';
 import { element } from 'protractor';
-import { User } from 'src/app/interfaces/Ilogin';
-import { LoginService } from 'src/app/services/login.service';
 import { Router, ActivatedRoute, UrlSegment, NavigationEnd } from '@angular/router';
 import { MdePopoverTrigger } from '@material-extended/mde';
+import { User } from '../../interfaces/Ilogin';
 
 @Component({
   selector: 'app-header',
@@ -54,10 +51,7 @@ export class HeaderComponent implements OnInit {
   deliveryTime: string;
   currentRoute: string;
   constructor(
-    private profileService: ProfileService,
     public dialog: MatDialog,
-    private cartService: CartService,
-    public loginService: LoginService,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) { 
@@ -71,16 +65,6 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.profileService.getAddresses().subscribe(res => {
-      this.deliveryAddresses = res;
-      this.selectDefaultAddress(this.deliveryAddresses);
-    });
-    this.cartService.cart.subscribe(res => {
-      this.cartItems = res;
-    });
-    this.loginService.loggedIn.subscribe(next => {
-      this.user = next;
-    });
     this.selectedDeliveryTime = this.deliveryTimeSelection[0];
     this.selectedAddress = this.deliveryAddresses[0];
   }
@@ -133,11 +117,9 @@ export class HeaderComponent implements OnInit {
   }
   logout() {
     this.user = null;
-    this.loginService.loggedIn.next(this.user);
     this.router.navigate(['home']);
   }
   addToCart(item) {
-    this.cartService.addToCart(item);
   }
   closeCartPopover() {
     this.trigger.toArray()[0].togglePopover();

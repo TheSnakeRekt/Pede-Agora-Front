@@ -19,9 +19,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginService.loggedIn.subscribe(next => {
-      this.user = next;
-    });
     this.cartService.cart.subscribe(res => {
       this.cartItems = res;
     })

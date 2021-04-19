@@ -128,7 +128,9 @@ const skltnConfig: SkltnConfig = {
     NgxMaterialTimepickerModule,
     HttpClientModule,
     NgxPageScrollCoreModule.forRoot({duration: 1500}),
-    NgxPageScrollModule
+    NgxPageScrollModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: DelayInterceptor, multi: true }

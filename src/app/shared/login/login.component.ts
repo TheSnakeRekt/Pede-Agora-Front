@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/interfaces/Ilogin';
-import { LoginService } from 'src/app/services/login.service';
+import { UserLogin } from '../../definitions/User'
 import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -9,15 +10,33 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  user = {} as User;
-  constructor(private loginService: LoginService, private router: Router) { }
+  loginFormgroup: FormGroup;
+  user: UserLogin;
+  constructor(private loginService:LoginService, private router: Router) { }
 
   ngOnInit() {
+    this.loginFormgroup = new FormGroup({
+      username: new FormControl('',Validators.required),
+      password: new FormControl('',Validators.required)
+    },Validators.required);
   }
+
   login(){
-    this.user.mobileNumber = "9039907701";
-    this.loginService.loggedIn.next(this.user);
-    this.router.navigate(['/home']);
+    if(this.loginFormgroup.valid){
+      this.user = {
+        name: this.loginFormgroup.controls.username.value,
+        account:{
+          password:this.loginFormgroup.controls.password.value,
+          token: ``
+        }
+      } 
+
+      this.loginService.logIn(this.user).subscribe(data=>{
+        console.log(data);
+      })
+    }
+   
+    //this.router.navigate(['/home']);
   }
 
 }

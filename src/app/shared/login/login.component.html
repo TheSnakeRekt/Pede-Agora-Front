@@ -5,16 +5,16 @@
         </div>
         <h1 style="margin: 40px 0px; width: 100%;">Bem Vindo</h1>
         <span>Entre com o seu numero de télemovel ou endereço e-mail</span>
-        <div class="login-input-box">
+        <form class="login-input-box" [formGroup]="loginFormgroup" (ngSubmit)="login()">
             <mat-form-field appearance="outline" class="input-box full-width" style="margin-top: 10px;">
                 <mat-label>Numero de Télemovel</mat-label>
-                <input matInput placeholder="Numero de Télemovel" class="input-text">
+                <input matInput placeholder="Numero de Télemovel" class="input-text" formControlName="username">
             </mat-form-field>
             <mat-form-field appearance="outline" class="input-box full-width" style="margin-top: 10px;">
                 <mat-label>Password</mat-label>
-                <input type="password" matInput placeholder="Password" class="input-text">
+                <input type="password" matInput placeholder="Password" class="input-text" formControlName="password">
             </mat-form-field>
-        </div>
+        </form>
         <button mat-raised-button class="full-width full-height accent-background" style="height: 45px;" (click)= "login()">
             Login
         </button>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../interfaces/Ilogin';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +9,9 @@ import { BehaviorSubject } from 'rxjs';
 export class LoginService {
 
   user: User;
-  loggedIn = new BehaviorSubject(this.user);
-  constructor() { }
+  constructor(private HttpClient:HttpClient) { }
 
-  isLoggedIn(): boolean {
-    return true;
+  logIn(user):Observable<any> {
+    return this.HttpClient.post<any>(`http://localhost:3000/login`, user);
   }
 }
