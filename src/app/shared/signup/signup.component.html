@@ -1,36 +1,62 @@
 <div class="signup-container">
-    <div class="body">
-        <div style="width: 100%; text-align: center; margin-bottom: 30px;">
-            <img height="32px"
-                src="../assets/logo.svg">
-        </div>
-        <span style="margin-bottom: 10px;">Create account with your mobile number and email address</span>
-        <div class="login-input-box">
-            <mat-form-field appearance="outline" class="input-box full-width" >
-                <mat-label>Mobile number</mat-label>
-                <input matInput placeholder="Mobile number" class="input-text">
-            </mat-form-field>
-        </div>
-        <div class="login-input-box">
-            <mat-form-field appearance="outline" class="input-box full-width" >
-                <mat-label>Email address</mat-label>
-                <input matInput placeholder="Email address" class="input-text">
-            </mat-form-field>
-        </div>
-        <div class="login-input-box">
-            <mat-form-field appearance="outline" class="input-box full-width" >
-                <mat-label>Password</mat-label>
-                <input matInput placeholder="Password" class="input-text" type="password">
-            </mat-form-field>
-        </div>
-        <button mat-raised-button class="full-width full-height success-background " style="height: 45px;">
-            Sign up
-        </button>
-        <div style="text-align: center; margin-top: 15px;">
-            <span>Already have an account? </span> 
-            <span>
-                <a [routerLink]="['/login']" routerLinkActive="active">login</a>
-            </span>
-        </div>
+    <div class="signup-logo">
+        <img src="../assets/logo_orig.png" class="fadeIn">
     </div>
+    <div class="signup-form">
+        <form formGroup="signInFormGroup" (ngSubmit)="signUp()">
+            <div class="signup-data-column">
+                <div style="margin-bottom: 10px;">Criar uma conta com numero de telefone e E-mail</div>
+                <mat-form-field appearance="outline" class="input-box full-width" >
+                    <mat-label>Nome</mat-label>
+                    <input matInput placeholder="Nome" class="input-text full-width" type="text" formControlName="nome">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="input-box full-width" >
+                    <mat-label>Apelido</mat-label>
+                    <input matInput placeholder="Apelido" class="input-text full-width" type="text" formControlName="apelido">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="input-box full-width" >
+                    <mat-label>NIF</mat-label>
+                    <input matInput placeholder="NIF" class="input-text full-width" type="text" formControlName="NIF">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="input-box half-width" >
+                    <mat-label>Numero de telefone</mat-label>
+                    <input matInput placeholder="Numero de telefone" class="input-text" formControlName="telefone">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="input-box half-width">
+                    <mat-label>Endereço E-mail</mat-label>
+                    <input matInput placeholder="Endereço E-mail" class="input-text" formControlName="email">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="input-box full-width" >
+                    <mat-label>Password</mat-label>
+                    <input matInput placeholder="Password" class="input-text full-width" type="password" formControlName="password">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="input-box full-width" >
+                    <mat-label>Repita a password</mat-label>
+                    <input matInput placeholder="Repita a password" class="input-text" type="password">
+                </mat-form-field>
+            </div>
+            <div class="signup-data-column">
+                <mat-form-field appearance="outline" class="input-box half-width" >
+                    <mat-label>Morada</mat-label>
+                    <input matInput placeholder="Morada" class="input-text" type="password" formControlName="morada">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="input-box half-width" >
+                    <mat-label>Código Postal</mat-label>
+                    <input matInput placeholder="Código Postal" class="input-text" type="password" formControlName="codigopostal">
+                </mat-form-field>
+            </div>
+            <div>
+                <button mat-raised-button class="full-width full-height accent-background" style="height: 45px;">
+                    Criar Conta
+                </button>
+                <div style="text-align: center; margin-top: 15px;">
+                    <span>Já tem uma conta?</span> 
+                    <span>
+                        <a [routerLink]="['/login']" routerLinkActive="active"> login</a>
+                    </span>
+                </div>
+            </div>
+        </form>
+    </div>
+  
 </div>

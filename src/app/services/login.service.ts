@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '../interfaces/Ilogin';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -13,5 +13,9 @@ export class LoginService {
 
   logIn(user):Observable<any> {
     return this.HttpClient.post<any>(`http://localhost:3000/login`, user);
+  }
+
+  signIn(userInfo): Observable<any>{
+    return this.HttpClient.post<any>(`http://localhost:3000/signin`, userInfo);
   }
 }

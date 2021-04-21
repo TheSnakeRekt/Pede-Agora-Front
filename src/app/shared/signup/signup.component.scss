@@ -1,13 +1,32 @@
-.signup-container{
+.signup-container {
     margin-top: 100px;
     width: 100%;
     min-height: 450px;
-    .body{
-        position: absolute;
-        top: 15%;
-        left: 32%;;
-        width: 500px;
-        display: flex;
-        flex-direction: column;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+
+    .signup-logo {
+        padding-top: 5%;
     }
+}
+
+.signup-form {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    max-width: 40%;
+}
+
+.signup-data-column{
+    flex-flow: row;
+}
+
+.half-width{
+    width: 50%;
+}
+
+a{
+    color: rgb(204, 160, 40);
+    text-decoration-color: rgb(204, 160, 40);
 }
