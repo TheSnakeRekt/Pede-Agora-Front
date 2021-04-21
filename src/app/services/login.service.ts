@@ -16,6 +16,7 @@ export class LoginService {
   }
 
   signIn(userInfo): Observable<any>{
+    console.log(userInfo)
     return this.HttpClient.post<any>(`http://localhost:3000/signin`, userInfo);
   }
 }

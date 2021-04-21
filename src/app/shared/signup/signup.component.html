@@ -3,7 +3,7 @@
         <img src="../assets/logo_orig.png" class="fadeIn">
     </div>
     <div class="signup-form">
-        <form formGroup="signInFormGroup" (ngSubmit)="signUp()">
+        <form [formGroup]="signInFormGroup" (ngSubmit)="signUp()">
             <div class="signup-data-column">
                 <div style="margin-bottom: 10px;">Criar uma conta com numero de telefone e E-mail</div>
                 <mat-form-field appearance="outline" class="input-box full-width" >
@@ -16,7 +16,7 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="input-box full-width" >
                     <mat-label>NIF</mat-label>
-                    <input matInput placeholder="NIF" class="input-text full-width" type="text" formControlName="NIF">
+                    <input matInput placeholder="NIF" class="input-text full-width" type="text" formControlName="nif">
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="input-box half-width" >
                     <mat-label>Numero de telefone</mat-label>
@@ -38,15 +38,19 @@
             <div class="signup-data-column">
                 <mat-form-field appearance="outline" class="input-box half-width" >
                     <mat-label>Morada</mat-label>
-                    <input matInput placeholder="Morada" class="input-text" type="password" formControlName="morada">
+                    <input matInput placeholder="Morada" class="input-text" type="text" formControlName="morada">
                 </mat-form-field>
-                <mat-form-field appearance="outline" class="input-box half-width" >
+                <mat-form-field appearance="outline" class="input-box fourth-width" >
                     <mat-label>Código Postal</mat-label>
-                    <input matInput placeholder="Código Postal" class="input-text" type="password" formControlName="codigopostal">
+                    <input matInput placeholder="Código Postal" class="input-text" type="text" formControlName="codigopostal">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="input-box fourth-width" >
+                    <mat-label>Cidade/Vila</mat-label>
+                    <input matInput placeholder="Cidade/Vila" class="input-text" type="text" formControlName="cidade">
                 </mat-form-field>
             </div>
             <div>
-                <button mat-raised-button class="full-width full-height accent-background" style="height: 45px;">
+                <button mat-raised-button type="submit" class="full-width full-height accent-background" style="height: 45px;">
                     Criar Conta
                 </button>
                 <div style="text-align: center; margin-top: 15px;">

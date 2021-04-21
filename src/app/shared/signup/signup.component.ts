@@ -9,22 +9,22 @@ import { LoginService } from '../../services/login.service';
 })
 export class SignupComponent implements OnInit {
 
-
   signInFormGroup: FormGroup;
-  constructor(private loginService: LoginService) {
+
+  constructor(private loginService: LoginService) {}
+
+  ngOnInit() {
     this.signInFormGroup= new FormGroup({
       nome: new FormControl('', Validators.required),
-      sobrenome: new FormControl(''),
+      apelido: new FormControl(''),
       nif: new FormControl(''),
       telefone: new FormControl('', Validators.minLength(9)),
       email: new FormControl('', Validators.email),
       password: new FormControl('', Validators.required),
       morada :new FormControl('',Validators.required),
-      codpostal: new FormControl('',Validators.required)
-    })
-   }
-
-  ngOnInit() {
+      codigopostal: new FormControl('',Validators.required),
+      cidade: new FormControl('',Validators.required)
+    }, Validators.required);
   }
 
   signUp() {
