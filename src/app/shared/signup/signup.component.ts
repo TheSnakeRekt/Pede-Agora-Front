@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class SignupComponent implements OnInit {
 
   signInFormGroup: FormGroup;
 
-  constructor(private loginService: LoginService) {}
+  constructor(private loginService: LoginService, private router: Router) {}
 
   ngOnInit() {
     this.signInFormGroup= new FormGroup({
@@ -22,15 +23,18 @@ export class SignupComponent implements OnInit {
       email: new FormControl('', Validators.email),
       password: new FormControl('', Validators.required),
       morada :new FormControl('',Validators.required),
-      codigopostal: new FormControl('',Validators.required),
-      cidade: new FormControl('',Validators.required)
-    }, Validators.required);
+      codigopostal: new FormControl('', Validators.required),
+      cidade: new FormControl('', Validators.required)
+    });
   }
 
   signUp() {
     if(this.signInFormGroup.valid) {
       this.loginService.signIn(this.signInFormGroup.value).subscribe(data=>{
         console.log(data);
+        if(data){
+          this.router.navigate(['/home']);
+        }
       });
     }
   }

@@ -21,9 +21,10 @@ export class HomeComponent implements OnInit {
         return rest.tags.map(tag=>{
           return tag.trim()
         })
-      })))]
+      })))];
+      this.resturantService.setTags(this.tags);
     });
-   
+    
   }
 
   goToRestaurant(id){

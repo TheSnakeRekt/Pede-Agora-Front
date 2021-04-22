@@ -6,6 +6,7 @@ import { element } from 'protractor';
 import { Router, ActivatedRoute, UrlSegment, NavigationEnd } from '@angular/router';
 import { MdePopoverTrigger } from '@material-extended/mde';
 import { User } from '../../interfaces/Ilogin';
+import { RestaurantService } from '../../services/restaurant.service';
 
 @Component({
   selector: 'app-header',
@@ -27,20 +28,7 @@ export class HeaderComponent implements OnInit {
     }
   ];
   deliveryAddresses = new Array();
-  searchableFoods = [
-    {
-      'icon': 'access_time',
-      'title': 'North Indian'
-    },
-    {
-      'icon': 'access_time',
-      'title': 'Indian'
-    },
-    {
-      'icon': 'access_time',
-      'title': 'Biriyani'
-    },
-  ]
+  searchableFoods;
 
   cartItems = new Array();
   selectedDeliveryTime: any;
@@ -53,7 +41,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private restaurantService: RestaurantService
   ) { 
     this.router.events.subscribe(
       (event: any) => {
@@ -68,6 +57,7 @@ export class HeaderComponent implements OnInit {
     this.selectedDeliveryTime = this.deliveryTimeSelection[0];
     this.selectedAddress = this.deliveryAddresses[0];
   }
+
   selectDefaultAddress(listOfAddresses) {
     listOfAddresses.forEach(element => {
       if (element.default) {
@@ -80,10 +70,13 @@ export class HeaderComponent implements OnInit {
   addressButtonToggle() {
     this.inputAddressBoxEnable = !this.inputAddressBoxEnable;
   }
+  
   searchInputBoxEnable = false;
   searchButtonToggle() {
+    this.searchableFoods = this.restaurantService.getTags().slice(0,5);
     this.searchInputBoxEnable = !this.searchInputBoxEnable;
   }
+
   deliveryTimeSelectionChange() {
     if (this.selectedDeliveryTime.title == "Scheduler For Later") {
       this.openDialog();

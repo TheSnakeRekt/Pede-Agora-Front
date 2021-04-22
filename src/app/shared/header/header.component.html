@@ -94,7 +94,7 @@
             </button>
             <mat-form-field style="margin-top: 10px;" *ngIf="searchInputBoxEnable" (keyup.enter)="searchButtonToggle()" 
                 floatLabel="never">
-                <input matInput type="text" placeholder="What are you craving" (blur)="searchButtonToggle()"
+                <input matInput type="text" placeholder="O que lhe apetece" (blur)="searchButtonToggle()"
                     [matAutocomplete]="auto" style=" padding-bottom: 5px; font-size: 14px;">
                 <mat-icon fontSet="material-icons-outlined" matPrefix mat-icon-button class="icon"
                     style="margin-right: 5px;">access_time</mat-icon>
@@ -102,10 +102,10 @@
                     <mat-icon style="padding-bottom: 5px;">close</mat-icon>
                 </button>
                 <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                    <mat-option *ngFor="let food of searchableFoods" [value]="food.title">
+                    <mat-option *ngFor="let food of searchableFoods" [value]="food">
                         <mat-icon fontSet="material-icons-outlined" mat-icon-button class="icon"
-                            style="margin-right: 5px;">{{food.icon}}</mat-icon>
-                        <span>{{food.title}}</span>
+                            style="margin-right: 5px;">access_time</mat-icon>
+                        <span>{{food}}</span>
                     </mat-option>
                 </mat-autocomplete>
             </mat-form-field>
