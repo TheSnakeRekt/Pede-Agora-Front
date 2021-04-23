@@ -7,7 +7,9 @@ import { Router, ActivatedRoute, UrlSegment, NavigationEnd } from '@angular/rout
 import { MdePopoverTrigger } from '@material-extended/mde';
 import { User } from '../../interfaces/Ilogin';
 import { RestaurantService } from '../../services/restaurant.service';
-import { ReadService } from '../../services/read.service';
+import { LoginService } from '../../services/login.service';
+import { Console } from 'node:console';
+import { WriteService } from '../../services/write.service';
 
 @Component({
   selector: 'app-header',
@@ -44,7 +46,8 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private restaurantService: RestaurantService,
-    private storage: ReadService
+    private loginService: LoginService,
+    private accountState: WriteService
   ) { 
     this.router.events.subscribe(
       (event: any) => {
@@ -56,13 +59,18 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    let token: string;
-    this.storage.account.subscribe(data=>{
-      token = data.token;
-    });
+    let token: string = localStorage.getItem("TOKEN");
 
     if(token){
-      this.router.navigate(['/login']);
+      this.loginService.validateToken(token).subscribe(data=>{
+        if(!data){
+          this.accountState.removeAccount();
+          this.router.navigate(['/login']);
+        }
+        
+        data.token = token;
+        console.log(`LoggedIn`, data);
+      });
     }
 
     this.selectedDeliveryTime = this.deliveryTimeSelection[0];

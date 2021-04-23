@@ -2,23 +2,24 @@ import { Injectable } from '@angular/core';
 import { User } from '../interfaces/Ilogin';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ReadService } from './read.service';
+import { Account, AccountToken } from '../definitions/Account';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  user: User;
-  constructor(private HttpClient:HttpClient, private storage:ReadService) { }
+  constructor(private HttpClient:HttpClient) { }
 
-  logIn(user):Observable<any> {
-    let token;
-    this.storage.account.subscribe(data=>{
-      token = data.token ? data.token : '';
-    });
-    console.log(token)
-    return this.HttpClient.post<any>(`http://localhost:3000/login`, user, {headers:{'x-access-token': token}});
+  logIn(user):Observable<AccountToken> {
+    let token = localStorage.getItem("TOKEN");
+    console.log(user);
+    
+    return this.HttpClient.post<any>(`http://localhost:3000/login`, user, {headers:{'x-access-token': token ? token : ``}});
+  }
+
+  validateToken(token:string): Observable<Account>{
+    return this.HttpClient.post<any>(`http://localhost:3000/login`, {}, {headers:{'x-access-token': token ? token : ``}});
   }
 
   signIn(userInfo): Observable<any>{

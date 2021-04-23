@@ -62,9 +62,6 @@ import { AddItemModelComponent } from './single-restaurant/add-item-model/add-it
 import { DelayInterceptor } from './services/delay-interceptor.service';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './reducers/account.reducer';
-import { WriteService } from './services/write.service';
-import { ReadService } from './services/read.service';
-import { AddAccount } from './actions/account.action';
 
 const skltnConfig: SkltnConfig = {
   rectRadius: 10,

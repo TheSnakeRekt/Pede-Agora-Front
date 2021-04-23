@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
 import { WriteService } from '../../services/write.service';
-import { Account } from '../../definitions/Account';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -27,15 +27,13 @@ export class LoginComponent implements OnInit {
       this.user = {
         name: this.loginFormgroup.controls.username.value,
         account:{
-          password:this.loginFormgroup.controls.password.value,
-          token: ``
+          password:this.loginFormgroup.controls.password.value
         }
       } 
 
       this.loginService.logIn(this.user).subscribe(data=>{
-        console.log(data)
         if(data.access){
-          this.accountState.addAccount(data.account)
+          this.accountState.addAccount(data);
           this.router.navigate(["/home"]);
         }else{
           this.accountState.removeAccount();

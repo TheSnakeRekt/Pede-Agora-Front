@@ -1,6 +1,5 @@
 export interface AccountLogin {
-    password: string,
-    token: string,
+    password: string
 }
 
 export interface AccountToken {

@@ -10,8 +10,8 @@ const initialState:AccountToken = {
 export function reducer (state: AccountToken = initialState, action: AccountActions.Actions) {
     switch(action.type){
         case AccountActions.ADD_ACCOUNT:
-            return [state, action.payload];
+            return action.payload;
         default:
-            return initialState;
+            return state;
     }
 }

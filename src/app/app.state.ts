@@ -1,5 +1,5 @@
-import { Account } from "./definitions/Account";
+import { AccountToken } from "./definitions/Account";
 
 export interface AppState {
-    readonly account: Account;
+    readonly account: AccountToken;
 }
