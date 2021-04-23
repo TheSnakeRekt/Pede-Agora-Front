@@ -15,10 +15,10 @@ export class LoginService {
   logIn(user):Observable<any> {
     let token;
     this.storage.account.subscribe(data=>{
-      token = data.token
+      token = data.token ? data.token : '';
     });
-    
-    return this.HttpClient.post<any>(`http://localhost:3000/login`, user, {headers:new HttpHeaders({'x-access-token':token})});
+    console.log(token)
+    return this.HttpClient.post<any>(`http://localhost:3000/login`, user, {headers:{'x-access-token': token}});
   }
 
   signIn(userInfo): Observable<any>{

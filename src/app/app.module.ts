@@ -88,9 +88,7 @@ const skltnConfig: SkltnConfig = {
     MyAccountComponent,
     PaymentsComponent,
     AddressesComponent,
-    AddItemModelComponent,
-    WriteService,
-    ReadService
+    AddItemModelComponent
   ],
   imports: [
     FormsModule,

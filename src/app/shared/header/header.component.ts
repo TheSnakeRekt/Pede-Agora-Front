@@ -88,11 +88,13 @@ export class HeaderComponent implements OnInit {
     this.searchInputBoxEnable = !this.searchInputBoxEnable;
   }
 
-  deliveryTimeSelectionChange() {
+  deliveryTimeSelectionChange(event) {
     if (this.selectedDeliveryTime.title == "Scheduler For Later") {
       this.openDialog();
     }
   }
+
+  enableClosePopover;
   openDialog(): void {
     const dialogRef = this.dialog.open(SheduledDeliverModelComponent, {
       width: '450px',

@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
       } 
 
       this.loginService.logIn(this.user).subscribe(data=>{
+        console.log(data)
         if(data.access){
           this.accountState.addAccount(data.account)
           this.router.navigate(["/home"]);
