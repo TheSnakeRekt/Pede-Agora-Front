@@ -1,6 +1,6 @@
-import { Account } from "./Account";
+import { AccountLogin } from "./Account";
 
 export interface UserLogin {
     name: string;
-    account: Account;
+    account: AccountLogin;
 }

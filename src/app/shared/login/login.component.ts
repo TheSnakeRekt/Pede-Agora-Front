@@ -3,7 +3,8 @@ import { UserLogin } from '../../definitions/User'
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
-
+import { WriteService } from '../../services/write.service';
+import { Account } from '../../definitions/Account';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,13 +13,13 @@ import { LoginService } from '../../services/login.service';
 export class LoginComponent implements OnInit {
   loginFormgroup: FormGroup;
   user: UserLogin;
-  constructor(private loginService:LoginService, private router: Router) { }
+  constructor(private loginService:LoginService, private router: Router, private accountState: WriteService) { }
 
   ngOnInit() {
     this.loginFormgroup = new FormGroup({
       username: new FormControl('',Validators.required),
       password: new FormControl('',Validators.required)
-    },Validators.required);
+    }, Validators.required);
   }
 
   login(){
@@ -32,11 +33,14 @@ export class LoginComponent implements OnInit {
       } 
 
       this.loginService.logIn(this.user).subscribe(data=>{
-        console.log(data);
+        if(data.access){
+          this.accountState.addAccount(data.account)
+          this.router.navigate(["/home"]);
+        }else{
+          this.accountState.removeAccount();
+        }
       })
     }
-   
-    //this.router.navigate(['/home']);
   }
 
 }

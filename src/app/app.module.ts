@@ -60,6 +60,12 @@ import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { AddItemModelComponent } from './single-restaurant/add-item-model/add-item-model.component';
 import { DelayInterceptor } from './services/delay-interceptor.service';
+import { StoreModule } from '@ngrx/store';
+import { reducer } from './reducers/account.reducer';
+import { WriteService } from './services/write.service';
+import { ReadService } from './services/read.service';
+import { AddAccount } from './actions/account.action';
+
 const skltnConfig: SkltnConfig = {
   rectRadius: 10,
   flareWidth: '150px',
@@ -82,13 +88,18 @@ const skltnConfig: SkltnConfig = {
     MyAccountComponent,
     PaymentsComponent,
     AddressesComponent,
-    AddItemModelComponent
+    AddItemModelComponent,
+    WriteService,
+    ReadService
   ],
   imports: [
     FormsModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    StoreModule.forRoot({
+      account: reducer
+    }),
     //material
     MatAutocompleteModule,
     MatButtonModule,
@@ -133,7 +144,7 @@ const skltnConfig: SkltnConfig = {
     ReactiveFormsModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: DelayInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: DelayInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
   entryComponents: [SheduledDeliverModelComponent, AddItemModelComponent]
