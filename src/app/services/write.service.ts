@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.state';
 import * as AccountActions from '../actions/account.action';
-import { Account, AccountToken } from '../definitions/Account';
+import { AccountToken } from '../definitions/Account';
 
 @Injectable({
   providedIn: 'root'

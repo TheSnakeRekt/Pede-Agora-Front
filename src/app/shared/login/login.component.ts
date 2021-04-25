@@ -13,7 +13,9 @@ import { WriteService } from '../../services/write.service';
 export class LoginComponent implements OnInit {
   loginFormgroup: FormGroup;
   user: UserLogin;
-  constructor(private loginService:LoginService, private router: Router, private accountState: WriteService) { }
+  constructor(private loginService:LoginService, 
+    private router: Router, 
+    private accountState: WriteService) { }
 
   ngOnInit() {
     this.loginFormgroup = new FormGroup({
@@ -32,8 +34,10 @@ export class LoginComponent implements OnInit {
       } 
 
       this.loginService.logIn(this.user).subscribe(data=>{
+        
         if(data.access){
           this.accountState.addAccount(data);
+
           this.router.navigate(["/home"]);
         }else{
           this.accountState.removeAccount();

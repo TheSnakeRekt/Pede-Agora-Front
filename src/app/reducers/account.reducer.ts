@@ -7,11 +7,11 @@ const initialState:AccountToken = {
     account:{} as Account
 }
 
-export function reducer (state: AccountToken = initialState, action: AccountActions.Actions) {
+export function reducer(state: AccountToken = initialState, action: AccountActions.Actions) {
     switch(action.type){
         case AccountActions.ADD_ACCOUNT:
             return action.payload;
         default:
-            return state;
+            return AccountActions.GetAccount.load();
     }
 }

@@ -69,22 +69,22 @@
                 </div>
             </a>
             <div class="very-small-gap"></div>
-            <a mat-button *ngIf="user" [mdePopoverTriggerFor]="appPopover" [mdePopoverOffsetX]="-50"
-                [mdePopoverOffsetY]="55" mdePopoverTriggerOn="click">
+            <a mat-button *ngIf="loggedIn; else conta" [routerLink]="['/my-account']" routerLinkActive="active">
                 <div class="header-menu-box">
                     <mat-icon fontSet="material-icons-outlined" class="icon">person</mat-icon>
                     <div class="very-small-gap"></div>
-                    <span class="header-menu-text">Piyush</span>
+                    <span class="header-menu-text">{{firstName}}</span>
                 </div>
             </a>
-            <div class="very-small-gap"></div>
-            <a mat-button *ngIf="!user" [routerLink]="['/login']" routerLinkActive="active">
-                <div class="header-menu-box">
-                    <mat-icon fontSet="material-icons-outlined" class="icon">person</mat-icon>
-                    <div class="very-small-gap"></div>
-                    <span class="header-menu-text">Login</span>
-                </div>
-            </a>
+            <ng-template #conta>
+                <a mat-button [routerLink]="['/login']" routerLinkActive="active">
+                    <div class="header-menu-box">
+                        <mat-icon fontSet="material-icons-outlined" class="icon">person</mat-icon>
+                        <div class="very-small-gap"></div>
+                        <span class="header-menu-text">Login</span>
+                    </div>
+                </a>
+            </ng-template>
             <button mat-button (click)="searchButtonToggle()" *ngIf="!searchInputBoxEnable" class="hide-mobile-view">
                 <div class="header-menu-box">
                     <mat-icon fontSet="material-icons-outlined" class="icon">search</mat-icon>

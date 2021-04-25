@@ -18,7 +18,7 @@ export class LoginService {
     return this.HttpClient.post<any>(`http://localhost:3000/login`, user, {headers:{'x-access-token': token ? token : ``}});
   }
 
-  validateToken(token:string): Observable<Account>{
+  validateToken(token:string): Observable<AccountToken>{
     return this.HttpClient.post<any>(`http://localhost:3000/login`, {}, {headers:{'x-access-token': token ? token : ``}});
   }
 

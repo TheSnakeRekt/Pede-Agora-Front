@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
+import { WriteService } from '../../services/write.service';
 
 @Component({
   selector: 'app-signup',
@@ -12,7 +13,7 @@ export class SignupComponent implements OnInit {
 
   signInFormGroup: FormGroup;
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(private loginService: LoginService, private router: Router, private writeService: WriteService) {}
 
   ngOnInit() {
     this.signInFormGroup= new FormGroup({
@@ -31,9 +32,10 @@ export class SignupComponent implements OnInit {
   signUp() {
     if(this.signInFormGroup.valid) {
       this.loginService.signIn(this.signInFormGroup.value).subscribe(data=>{
-        console.log(data);
+        
         if(data){
-          this.router.navigate(['/home']);
+          this.writeService.addAccount(data);
+          this.router.navigate(['/home'])
         }
       });
     }

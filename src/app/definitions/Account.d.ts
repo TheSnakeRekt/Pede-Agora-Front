@@ -4,6 +4,7 @@ export interface AccountLogin {
 
 export interface AccountToken {
     access: boolean,
+    error?: string,
     account: Account
 }
 

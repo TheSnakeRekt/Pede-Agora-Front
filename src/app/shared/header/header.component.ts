@@ -10,6 +10,8 @@ import { RestaurantService } from '../../services/restaurant.service';
 import { LoginService } from '../../services/login.service';
 import { Console } from 'node:console';
 import { WriteService } from '../../services/write.service';
+import { ReadService } from '../../services/read.service';
+import { Account } from '../../definitions/Account';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +20,7 @@ import { WriteService } from '../../services/write.service';
 })
 export class HeaderComponent implements OnInit {
   @ViewChildren(MdePopoverTrigger) trigger: QueryList<MdePopoverTrigger>;
-  user: User;
+  user: Account;
   quantityList = [1,2,3,4,5,6,7,8,9,10];
   deliveryTimeSelection = [
     {
@@ -37,17 +39,20 @@ export class HeaderComponent implements OnInit {
   selectedDeliveryTime: any;
   selectedAddress: any;
   selectedSearchFood: any;
-
+  firstName: string;
   deliveryDate: string;
   deliveryTime: string;
   currentRoute: string;
+
+  loggedIn: boolean;
   constructor(
     public dialog: MatDialog,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private restaurantService: RestaurantService,
     private loginService: LoginService,
-    private accountState: WriteService
+    private writeService: WriteService,
+    private readService: ReadService,
   ) { 
     this.router.events.subscribe(
       (event: any) => {
@@ -58,21 +63,8 @@ export class HeaderComponent implements OnInit {
     );
   }
 
-  ngOnInit() {
-    let token: string = localStorage.getItem("TOKEN");
-
-    if(token){
-      this.loginService.validateToken(token).subscribe(data=>{
-        if(!data){
-          this.accountState.removeAccount();
-          this.router.navigate(['/login']);
-        }
-        
-        data.token = token;
-        console.log(`LoggedIn`, data);
-      });
-    }
-
+  ngOnInit() {  
+    this.loadToken();
     this.selectedDeliveryTime = this.deliveryTimeSelection[0];
     this.selectedAddress = this.deliveryAddresses[0];
   }
@@ -138,6 +130,27 @@ export class HeaderComponent implements OnInit {
   closeCartPopover() {
     this.trigger.toArray()[0].togglePopover();
   }
+
+  private loadToken(){
+    this.readService.getAccount().subscribe(data=>{
+      if(data){
+        let token: string = this.readService.extractToken(data);
+        if(token){
+          this.loginService.validateToken(token).subscribe(data=>{
+            if(!data  || data.error){
+              this.writeService.removeAccount();
+              this.router.navigate(['/login']);
+            }
+            data.account.token = token;
+            this.user = data.account;
+            this.loggedIn = true;
+            this.firstName = this.user.nome.split(' ')[0].trim();
+          });
+        }
+      }
+    });
+  }
+  
 }
 
 

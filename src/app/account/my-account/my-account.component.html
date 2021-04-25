@@ -2,14 +2,19 @@
     <div class="myaccount-container-body second-view">
         <div class="secondary-container-header">
             <div class="header-text">
-                <h1 class="primary-text">Piyush Jain</h1>
+                <h1 class="primary-text">{{account.nome}}</h1>
                 <span class="secondary-text">
-                    <span>9039907701</span>
-                    <span style="margin-left: 20px">jain.a.piyush@gmail.com</span>
+                    <span>{{account.telefone}}</span>
+                    <span style="margin-left: 20px">{{account.email}}</span>
                 </span>
             </div>
-            <div class="edit-button-box">
-                <button mat-raised-button class="edit-button-text">Edit Profile</button>
+            <div class="edit-button-container">
+                <div class="edit-button-box">
+                    <button mat-raised-button class="edit-button-text">Editar Informações</button>
+                </div>
+                <div class="edit-button-box">
+                    <button mat-raised-button class="edit-button-text" (click)="logout()">Logout</button>
+                </div>
             </div>
         </div>
         <div class="body">
@@ -24,7 +29,7 @@
                                     </mat-icon>
                                 </span>
                                 <span style="margin-left: 10px;">
-                                    Orders
+                                    Pedidos
                                 </span>
                             </span>
                         </li>
@@ -36,7 +41,7 @@
                                     </mat-icon>
                                 </span>
                                 <span style="margin-left: 10px;">
-                                    Favorites
+                                    Favoritos
                                 </span>
                             </span>
                         </li>
@@ -48,7 +53,7 @@
                                     </mat-icon>
                                 </span>
                                 <span style="margin-left: 10px;">
-                                    Payments
+                                    Métodos de pagamento
                                 </span>
                             </span>
                         </li>
@@ -60,7 +65,7 @@
                                     </mat-icon>
                                 </span>
                                 <span style="margin-left: 10px;">
-                                    Addresses
+                                    Moradas
                                 </span>
                             </span>
                         </li>
