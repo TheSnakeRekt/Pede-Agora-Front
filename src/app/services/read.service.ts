@@ -15,6 +15,10 @@ export class ReadService {
     return this.store.select('account');
   }
 
+  getSelectedRestaurant(){
+    return this.store.select('selectedRestaurant');
+  }
+
   extractToken(data: AccountToken){
     return data.account.token ? data.account.token : ``;
   }

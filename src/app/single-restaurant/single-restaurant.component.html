@@ -1,38 +1,37 @@
 <div class="single-restaurant-container">
-    <div class="restaurant-header-box">
+    <div class="restaurant-header-box" [style]='background'>
         <div class="details-box">
             <div class="contain">
-                <h1 style="font-weight: 600;">Name of Restaurant</h1>
+                <h1 style="font-weight: 600;">{{restaurant.nome}}</h1>
                 <div style="margin-top: 15px;">
-                    <label>₹₹</label>
-                    &bull;
-                    <label>North Indian <span style="margin: 0px 5px;">&bull;</span></label>
-                    <label>South Indian</label>
+                    <label>€</label>
+                    <div *ngFor='let tag of restaurant.tags'>
+                        <label><span style="margin: 0px 5px;">&bull;</span>{{tag.trim()}}</label>
+                    </div>
                 </div>
-                <div style="margin-top: 15px;">
-                    <mat-chip-list aria-label="Fish selection">
-                        <mat-chip>30-35 min</mat-chip>
+                <div class="restaurant-info">
+                    <mat-chip-list>
+                        <mat-chip>{{restaurant.timing}}</mat-chip>
                         <mat-chip>
-                            4.5 <img
-                                src="https://d3i4yxtzktqr9n.cloudfront.net/web-eats-v2/972e1cb487b3a5c72c30a6635596f477.svg">
-                            (500+)
+                            {{restaurant.rating}}
+                            <img src="https://d3i4yxtzktqr9n.cloudfront.net/web-eats-v2/972e1cb487b3a5c72c30a6635596f477.svg">
+                            {{restaurant.totalReviews}}
                         </mat-chip>
                     </mat-chip-list>
                 </div>
                 <div style="margin-top: 15px;">
-                    <label>Hinjawadi Village, Hinjawadi, Pune, Maharashtra 411057, India,</label>
+                    <label>{{morada}}</label>
                 </div>
             </div>
         </div>
         <div class="img-box">
-            <img src="https://d1ralsognjng37.cloudfront.net/21dee048-f651-41f6-9f24-a7fee046fbf2.jpeg" width="100%" height="380px" />
+            <img src="../{{restaurant.logo}}" width="100%" height="380px" />
         </div>
     </div>
     <div class="menu-header">
         <ul class="full-height flex-item-center">
-
             <li class="item" *ngFor="let item of meals" pageScroll href="#{{item.id}}"
-                [routerLink]="['/restaurants/101#'+item.id]" routerLinkActive="anchorActive">
+                [routerLink]="['/restaurants/'+restaurant.id+'#'+item.id]" routerLinkActive="anchorActive">
                 {{item.name}}
             </li>
         </ul>

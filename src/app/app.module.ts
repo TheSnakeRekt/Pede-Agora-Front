@@ -62,6 +62,7 @@ import { AddItemModelComponent } from './single-restaurant/add-item-model/add-it
 import { DelayInterceptor } from './services/delay-interceptor.service';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './reducers/account.reducer';
+import { reducerSelectedRestaurant } from './reducers/selectedRestaurant.reducer';
 
 const skltnConfig: SkltnConfig = {
   rectRadius: 10,
@@ -93,7 +94,8 @@ const skltnConfig: SkltnConfig = {
     AppRoutingModule,
     BrowserAnimationsModule,
     StoreModule.forRoot({
-      account: reducer
+      account: reducer,
+      selectedRestaurant: reducerSelectedRestaurant,
     }),
     //material
     MatAutocompleteModule,

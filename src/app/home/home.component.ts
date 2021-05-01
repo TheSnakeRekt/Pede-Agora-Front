@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RestaurantService } from '../services/restaurant.service';
 import { Router } from '@angular/router';
+import { Restaurant } from '../definitions/Restaurant';
+import { WriteService } from '../services/write.service';
 
 @Component({
   selector: 'app-home',
@@ -9,26 +11,27 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  restaurantes = new Array();
+  restaurantes:Restaurant[] = new Array();
   loaderRestaurant = new Array(3);
   tags = new Array();
-  constructor(private resturantService: RestaurantService, private router: Router) { }
+  constructor(private restaurantService: RestaurantService, private router: Router, private writeService: WriteService) { }
 
   ngOnInit() {
-    this.resturantService.getRestaurants().subscribe(res=>{
+    this.restaurantService.getRestaurants().subscribe(res=>{
       this.restaurantes = res.reverse();
       this.tags = [...new Set([].concat(...this.restaurantes.map((rest)=>{
         return rest.tags.map(tag=>{
           return tag.trim()
         })
       })))];
-      this.resturantService.setTags(this.tags);
+      this.restaurantService.setTags(this.tags);
     });
-    
+    console.log(this.restaurantes[0])
   }
 
-  goToRestaurant(id){
-    this.router.navigate(['restaurants/1'+id]);
+  goToRestaurant(id:number){
+    this.writeService.selectRestaurant(this.restaurantes.find(restaurant => restaurant.id === id));
+    this.router.navigate(['restaurants/'+id]);
   }
 
   hasTag(restaurante: any, tag: string): boolean{

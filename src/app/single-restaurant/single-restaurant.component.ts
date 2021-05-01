@@ -3,6 +3,8 @@ import { AddItemModelComponent } from './add-item-model/add-item-model.component
 import { MatDialog } from '@angular/material';
 import { RestaurantService } from '../services/restaurant.service';
 import { CartService } from '../services/cart.service';
+import { Restaurant } from '../definitions/Restaurant';
+import { ReadService } from '../services/read.service';
 
 @Component({
   selector: 'app-single-restaurant',
@@ -14,21 +16,28 @@ export class SingleRestaurantComponent implements OnInit {
   meals: any;
   cart = Array();
   loader = Array(8);
+  restaurant:Restaurant;
+  background:string;
+  morada:string;
+
   constructor(
     public dialog: MatDialog,
-    private resturantService: RestaurantService,
-    private cartService: CartService
-  ) { }
+    private restaurantService: RestaurantService,
+    private readService: ReadService,
+  ) { 
+  }
 
   ngOnInit() {
-    this.resturantService.getRecommendsItems().subscribe(res => {
-      this.meals = res;
-      this.cartService.cart.subscribe(cartRes => {
-        this.cart = cartRes;
-        this.enableMeal();
-      });
-    });
+    this.readService.getSelectedRestaurant().subscribe(data=>{
+      this.restaurant = data;
+      this.morada =`${this.restaurant.morada.rua}`; 
+      this.background = `background:url(${this.restaurant.cdn}${this.restaurant.desktop_widget});   
+      background-size: 100%;
+      background-repeat: no-repeat;`
+      console.log(this.background)
+    })
   }
+  
   enableMeal() {
     this.cart.forEach(cartItem => {
       this.meals.forEach(meal => {
