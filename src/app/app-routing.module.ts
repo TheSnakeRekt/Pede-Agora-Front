@@ -10,6 +10,7 @@ import { PaymentsComponent } from './account/payments/payments.component';
 import { AddressesComponent } from './account/addresses/addresses.component';
 import { SingleRestaurantComponent } from './single-restaurant/single-restaurant.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { MealComponent } from './single-restaurant/meal/meal.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,12 @@ const routes: Routes = [
     path: 'home', component: HomeComponent
   },
   {
-    path: 'restaurants/:id', component: SingleRestaurantComponent
+    path: 'restaurants/:id', component: SingleRestaurantComponent,
+    children:[
+      {
+        path:':categoria', component: MealComponent
+      },
+    ]
   },
   {
     path: 'login', component: LoginComponent

@@ -7,7 +7,6 @@
         align-items: center;
        
         .details-box {
-            
             flex: 2;
             height: 300px;
             .contain{
@@ -30,6 +29,7 @@
     }
 }
 .menu-header{
+   
     padding: 0px 75px;
     height: 80px;
     position: sticky;
@@ -37,6 +37,10 @@
     top: 0px;
     background: #fff;
     box-shadow: 0 15px 40px -20px rgba(40,44,63,.15);
+
+    .tab-group{
+        margin-top: 5px;
+    }
     .item{
         border-bottom: 2px solid #fff;
         margin-right: 40px;       
@@ -53,31 +57,6 @@
 .menu-body{
     padding: 0px 75px;
     margin: 20px 0px;
-    .item-container{
-        display: flex;
-        flex-wrap: wrap;
-    }
-    .item-box{
-        cursor: pointer;
-        width: 300px;
-        min-height: 60px;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-       
-    }
 }
-.quantity-box{
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    width: 30px;
-    background: green;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-}
+
 

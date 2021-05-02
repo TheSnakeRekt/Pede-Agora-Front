@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RestaurantService } from '../services/restaurant.service';
 import { Router } from '@angular/router';
 import { Restaurant } from '../definitions/Restaurant';
@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   loaderRestaurant = new Array(3);
   tags = new Array();
   constructor(private restaurantService: RestaurantService, private router: Router, private writeService: WriteService) { }
+ 
 
   ngOnInit() {
     this.restaurantService.getRestaurants().subscribe(res=>{
@@ -26,12 +27,11 @@ export class HomeComponent implements OnInit {
       })))];
       this.restaurantService.setTags(this.tags);
     });
-    console.log(this.restaurantes[0])
   }
 
   goToRestaurant(id:number){
     this.writeService.selectRestaurant(this.restaurantes.find(restaurant => restaurant.id === id));
-    this.router.navigate(['restaurants/'+id]);
+    this.router.navigate(['restaurants/',id]);
   }
 
   hasTag(restaurante: any, tag: string): boolean{

@@ -29,70 +29,19 @@
         </div>
     </div>
     <div class="menu-header">
-        <ul class="full-height flex-item-center">
-            <li class="item" *ngFor="let item of meals" pageScroll href="#{{item.id}}"
-                [routerLink]="['/restaurants/'+restaurant.id+'#'+item.id]" routerLinkActive="anchorActive">
-                {{item.name}}
-            </li>
-        </ul>
+        <nav mat-tab-nav-bar mat-align-tabs="center" class="tab-group">
+            <a mat-tab-link
+               *ngFor="let item of categorias"
+               [routerLink]="item.nome"
+               [state]="item.produtos"
+               routerLinkActive #rla="routerLinkActive"
+               [active]="rla.isActive"
+               >
+              {{item.nome}}
+            </a>
+          </nav>
     </div>
     <div class="menu-body">
-        <ng-container *ngIf="!meals">
-            <div class="card-container">
-                <skltn-root class="card" duration="1000" [rectRadius]="10" flareWidth="50%" bgFill="#d8d5d1"
-                    flareFill="rgba(255,255,255, 0.5)" *ngFor="let item of loader">
-                    <!-- Card with Avatar -->
-                    <div class="skltn-card">
-                        <div skltn-bone class="skltn-card__avatar" type="circle"></div>
-                        <div class="skltn-card__body">
-                            <div skltn-bone class="skltn-card__title"></div>
-                            <div skltn-bone class="skltn-card__line"></div>
-                            <div skltn-bone class="skltn-card__line"></div>
-                        </div>
-                    </div>
-                </skltn-root>
-            </div>
-        </ng-container>
-        <ng-container *ngFor="let meal of meals">
-            <h3 id="{{meal.id}}" style="margin: 40px 0px;">{{meal.name}}</h3>
-            <div class="item-container">
-                <div class="flex-with-space-between border-radius border hover-animation"
-                    style="margin: 0px 20px 20px 0px; position: relative;" *ngFor="let item of meal.mealList"
-                    (click)="addItemDialog(item)" [ngClass]="{ 'primary-border' : item.quantity > 0 }">
-
-
-                    <div class="item-box">
-                        <div class="flex">
-                            <div></div>
-                            <div>
-                                <div>
-                                    <div class="flex-only" style="margin-bottom: 10px;">
-                                        <img *ngIf="item.type === 'veg'"
-                                            src="https://d3i4yxtzktqr9n.cloudfront.net/web-eats-v2/511904b5d7cd6881bc88882d4089e3bb.svg"
-                                            width="12px" height="12px">
-                                        <img *ngIf="item.type === 'nonveg'"
-                                            src="https://d3i4yxtzktqr9n.cloudfront.net/web-eats-v2/d049360b6709dd54ea5ff0689849db7a.svg"
-                                            width="12px" height="12px">
-                                        <div style="margin-left: 10px;" class="flex-column">
-                                            <span> {{item.name}} </span>
-                                        </div>
-                                    </div>
-                                    <label>{{item.containt}}</label>
-                                </div>
-                                <div style="margin-top: 15px;">
-                                    <span>₹ {{item.price}}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div *ngIf="item.quantity > 0" class="quantity-box">
-                        <span>{{item.quantity}}</span>
-                    </div>
-                </div>
-            </div>
-        </ng-container>
-
+        <router-outlet></router-outlet>
     </div>
-
 </div>

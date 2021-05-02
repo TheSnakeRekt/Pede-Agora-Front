@@ -63,6 +63,7 @@ import { DelayInterceptor } from './services/delay-interceptor.service';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './reducers/account.reducer';
 import { reducerSelectedRestaurant } from './reducers/selectedRestaurant.reducer';
+import { MealComponent } from './single-restaurant/meal/meal.component';
 
 const skltnConfig: SkltnConfig = {
   rectRadius: 10,
@@ -86,7 +87,8 @@ const skltnConfig: SkltnConfig = {
     MyAccountComponent,
     PaymentsComponent,
     AddressesComponent,
-    AddItemModelComponent
+    AddItemModelComponent,
+    MealComponent
   ],
   imports: [
     FormsModule,

@@ -16,10 +16,6 @@ export class MyAccountComponent implements OnInit {
   AccountToken: AccountToken;
   account: Account;
   constructor(private router: Router,private activetedRoute: ActivatedRoute, private readService: ReadService, private writeService: WriteService) { 
-    this.activetedRoute.url.subscribe(res=>{
-     console.log(res);
-    });
-
     this.readService.getAccount().subscribe(data=>{
       this.AccountToken = data;
       console.log(data)
