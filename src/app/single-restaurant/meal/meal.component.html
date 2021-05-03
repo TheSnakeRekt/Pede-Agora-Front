@@ -15,19 +15,18 @@
             </skltn-root>
         </div>
     </ng-container>
+
     <ng-container>
-        <div class="card-container">
-            <mat-card *ngFor="let meal of produtos" class="card">
-                <mat-card-header>
-                    <img mat-card-avatar [src]="meal.foto">
-                    <mat-card-title>{{meal.nome}}</mat-card-title>
-                    <mat-card-subtitle>{{meal.preco}}€</mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-content>
-                    <h3>{{meal.descricao}}</h3>
-                </mat-card-content>
-            </mat-card>
+        <div class="box-wrapper" *ngFor="let item of produtos">
+            <img [src]="item.foto"/>
+            <div class="box-content">
+                <a class="buy"><span><i class="icon"></i></span></a>
+                <div class="title">{{item.nome}}</div>
+                <div class="desc">{{item.descricao}}</div>
+                <span class="price">{{item.preco}} €</span>
+            </div>
         </div>
     </ng-container>
+
 
 </div>
