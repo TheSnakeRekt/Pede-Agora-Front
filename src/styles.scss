@@ -140,7 +140,7 @@ label{
     background: #fff;
 }
 .success-background{
-    background: rgb(62, 153, 32);
+    background: rgb(197, 164, 18);
     color: white;
 }
 .success-outline{
@@ -209,7 +209,7 @@ button{
 
 
 .second-view{
-    background: darkslategray;
+    background: rgba(230, 178, 10, 0.788);
     min-height: 40vh;
     .secondary-container-header{
         height: 130px;
@@ -346,6 +346,10 @@ button{
     -webkit-animation-name: fadeIn;
     animation-name: fadeIn;
 }
+
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
+    background: rgb(255, 208, 0);
+} 
 
 @-webkit-keyframes fadeIn {
     0% {opacity: 0;}

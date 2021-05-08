@@ -38,7 +38,7 @@ export class MyAccountComponent implements OnInit {
     };
 
     this.writeService.addAccount(this.AccountToken)
-    this.writeService.removeAccount();
+
     this.router.navigate(['/home']).then(()=>{
       window.location.reload();
     });

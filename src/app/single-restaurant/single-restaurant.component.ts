@@ -1,13 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { AddItemModelComponent } from './add-item-model/add-item-model.component';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { RestaurantService } from '../services/restaurant.service';
-import { CartService } from '../services/cart.service';
-import { ActivatedRoute, Router, RouterOutlet } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Restaurant } from '../definitions/Restaurant';
 import { ReadService } from '../services/read.service';
-import { MealComponent } from './meal/meal.component';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-single-restaurant',
@@ -58,33 +54,13 @@ export class SingleRestaurantComponent implements OnInit {
 
     this.restaurantService.getMeals(this.restId).subscribe(data=>{
       this.categorias = data;
+      if(this.categorias[0].grupos.length > 0){
+        localStorage.setItem("Grupos", JSON.stringify(this.categorias[0].grupos));
+      }
+      
+      localStorage.setItem("foto", this.categorias[0].foto);
       localStorage.setItem("Categoria", JSON.stringify(this.categorias[0].produtos));
       this.router.navigate([this.categorias[0].nome], {relativeTo: this.activatedRoute});
     });
   }
-
-  addItemDialog(meal): void {
-    const dialogRef = this.dialog.open(AddItemModelComponent, {
-      width: '650px',
-      data: meal
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      // if (result) {
-      //   this.deliveryDate = result.deliveryDate;
-      //   this.deliveryTime = result.deliveryTime;
-      //   this.selectedDeliveryTime.data = result.deliveryDate + ' ' + result.deliveryTime;
-      // } else {
-      //   this.selectedDeliveryTime = this.deliveryTimeSelection[0];
-      // }
-    });
-  }
-}
-
-export interface Meal {
-  id: number;
-  name: string;
-  type: string;
-  price: number;
-  containt: string;
-  quantity: number;
 }

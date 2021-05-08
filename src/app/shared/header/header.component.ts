@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSelectChange } from '@angular/material';
 import { SheduledDeliverModelComponent } from '../sheduled-deliver-model/sheduled-deliver-model.component';
 import { element } from 'protractor';
 import { Router, ActivatedRoute, UrlSegment, NavigationEnd } from '@angular/router';
@@ -32,6 +32,7 @@ export class HeaderComponent implements OnInit {
       'title': 'Planear pra mais tarde'
     }
   ];
+
   deliveryAddresses = new Array();
   searchableFoods;
 
@@ -39,12 +40,13 @@ export class HeaderComponent implements OnInit {
   selectedDeliveryTime: any;
   selectedAddress: any;
   selectedSearchFood: any;
+
   firstName: string;
   deliveryDate: string;
   deliveryTime: string;
   currentRoute: string;
-
   loggedIn: boolean;
+
   constructor(
     public dialog: MatDialog,
     private router: Router,
@@ -67,6 +69,9 @@ export class HeaderComponent implements OnInit {
     this.loadToken();
     this.selectedDeliveryTime = this.deliveryTimeSelection[0];
     this.selectedAddress = this.deliveryAddresses[0];
+    this.readService.getCart().subscribe(data=>{
+      this.cartItems = data.orders;
+    })
   }
 
   selectDefaultAddress(listOfAddresses) {
@@ -114,19 +119,32 @@ export class HeaderComponent implements OnInit {
   deliveryAddressChange(event) {
     console.log(event);
   }
+
   calculateTotalPriceOfCart () : number{
     let total = 0;
     this.cartItems.forEach(element => {
-      total = total + (element.price * element.quantity);
+      total = total + (element.preco * element.quantidade);
     });
     return total;
   }
+
   logout() {
     this.user = null;
     this.router.navigate(['home']);
   }
-  addToCart(item) {
+
+  addToCart(event: MatSelectChange, item): void {
+    let newItem = Object.assign({},item);
+    newItem.quantidade = event.value;
+    this.writeService.updateItem(newItem);
   }
+
+  removeFromCart(item){
+    let newItem = Object.assign({},item);
+    newItem.quantidade = 0;
+    this.writeService.updateItem(newItem);
+  }
+
   closeCartPopover() {
     this.trigger.toArray()[0].togglePopover();
   }
@@ -138,7 +156,6 @@ export class HeaderComponent implements OnInit {
         if(token){
           this.loginService.validateToken(token).subscribe(data=>{
             if(!data  || data.error){
-              this.writeService.removeAccount();
               this.router.navigate(['/login']);
             }
             data.account.token = token;

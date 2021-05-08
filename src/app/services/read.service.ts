@@ -22,4 +22,8 @@ export class ReadService {
   extractToken(data: AccountToken){
     return data.account.token ? data.account.token : ``;
   }
+
+  getCart(){
+    return this.store.select('cart');
+  }
 }

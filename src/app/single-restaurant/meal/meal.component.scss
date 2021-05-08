@@ -10,16 +10,18 @@
 }
 
 .box-wrapper{
-    box-shadow: 5px 15px 40px -20px rgba(40,44,63,.15);
+    box-shadow: 5px 15px 40px -20px lightslategray;
     min-height: 450px;
     max-height: 450px;
-    min-width: 330px;
-    max-width: 330px;
+    min-width: 320px;
+    max-width: 320px;
+    transition: 100ms linear; 
 
     img {
         max-height: 214px;
         min-height: 214px;
 		max-width: 330px;
+        
 	}
 
     .title {
@@ -36,6 +38,7 @@
         font-size: 1.2em;
         min-height: 40px;
         padding: auto;
+        text-align: center;
     }
 
     .box-content{
@@ -44,7 +47,7 @@
     
         &:before {
             content: '';
-            width: 109.4%;
+            width: 115%;
             height: 100px;
             position: absolute;
             display: block;
@@ -53,6 +56,7 @@
             top: -50px;
             left: -10%;
             z-index: -1;
+            border-radius: 20%;
         }
   
         .buy {
@@ -140,4 +144,10 @@
     }
 }
 
-    
+.box-wrapper:hover{
+    transform: scale(1.04);
+    cursor: pointer;
+}
+
+
+   

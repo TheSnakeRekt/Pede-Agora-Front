@@ -33,7 +33,7 @@
             <a mat-tab-link
                *ngFor="let item of categorias"
                [routerLink]="item.nome"
-               [state]="item.produtos"
+               [state]="[item.produtos, item.foto, item.grupos]"
                routerLinkActive #rla="routerLinkActive"
                [active]="rla.isActive"
                >

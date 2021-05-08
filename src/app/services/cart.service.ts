@@ -1,36 +1,32 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { Meal } from '../single-restaurant/single-restaurant.component';
+import { ReadService } from './read.service';
+import { Cart } from '../definitions/Cart';
+import { WriteService } from './write.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  api = "http://localhost:3000";
-  cart = new BehaviorSubject(null);
-  constructor(private httpClient: HttpClient) { 
+
+
+  cart: Cart;
+  constructor(private readService: ReadService, private writeService: WriteService) { 
     this.getCart();
   }
  
 
   getCart() {
-     this.httpClient.get(this.api + "/cart").subscribe(res => {
-      this.cart.next(res);
+    this.readService.getCart().subscribe(data=>{
+      this.cart = data;
     });
   }
-  addToCart(item: Meal) {
-    this.httpClient.get(this.api + "/cart/" + item.id).subscribe(res => {
-      this.httpClient.put(this.api+"/cart/" +item.id, item).subscribe(res => {
-        console.log("success");
-        this.getCart();
-      });
-    }, err => {
-      this.httpClient.post(this.api + "/cart", item).subscribe(res => {
-        console.log("success");
-        this.getCart();
-      });
-    });
+
+  setTracker(tracker:string){
+    this.cart.tracker = tracker;
+  }
+
+  addToCart(item) {
+   this.writeService.addItem(this.cart, item);
   }
 
 }

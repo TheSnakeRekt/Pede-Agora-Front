@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { User } from '../interfaces/Ilogin';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Account, AccountToken } from '../definitions/Account';
+import { HttpClient } from '@angular/common/http';
+import { AccountToken } from '../definitions/Account';
 
 @Injectable({
   providedIn: 'root'

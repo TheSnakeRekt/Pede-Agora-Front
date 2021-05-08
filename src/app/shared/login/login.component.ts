@@ -36,11 +36,12 @@ export class LoginComponent implements OnInit {
       this.loginService.logIn(this.user).subscribe(data=>{
         
         if(data.access){
+          console.log(data);
           this.accountState.addAccount(data);
 
           this.router.navigate(["/home"]);
         }else{
-          this.accountState.removeAccount();
+
         }
       })
     }

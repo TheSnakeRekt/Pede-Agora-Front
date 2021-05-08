@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Account, Morada } from '../../definitions/Account';
+import { ReadService } from '../../services/read.service';
 
 @Component({
   selector: 'app-addresses',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddressesComponent implements OnInit {
 
-  constructor() { }
+
+  public conta:Account;
+  fullComponent:boolean = true;
+
+  constructor(private readService:ReadService) { }
 
   ngOnInit() {
+    this.readService.getAccount().subscribe(data=>{
+      this.conta = data.account;
+    });
   }
 
 }

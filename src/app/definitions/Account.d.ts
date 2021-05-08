@@ -18,6 +18,8 @@ export interface Account {
 }
 
 export interface Morada{
+    type: string;
+    name: string;
     rua: string,
     codigoPostal: string,
     cidade: string,

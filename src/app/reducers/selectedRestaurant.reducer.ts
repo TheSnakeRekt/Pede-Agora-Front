@@ -9,7 +9,6 @@ export function reducerSelectedRestaurant(state: Restaurant = initialState, acti
         case RestaurantActions.SELECT_RESTAURANT:
             return action.payload;
         default:
-            console.log(action)
             return state;
     }
 }

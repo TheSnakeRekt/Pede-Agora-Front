@@ -2,26 +2,42 @@
   <div class="model-header">
     <div class="flex-item-center">
 
-      <img *ngIf="data.type === 'veg'"
-        src="https://d3i4yxtzktqr9n.cloudfront.net/web-eats-v2/511904b5d7cd6881bc88882d4089e3bb.svg" width="12px"
-        height="12px">
-      <img *ngIf="data.type === 'nonveg'"
-        src="https://d3i4yxtzktqr9n.cloudfront.net/web-eats-v2/d049360b6709dd54ea5ff0689849db7a.svg" width="12px"
-        height="12px">
+      <img *ngIf="produto.type === 'veg'"
+        src="https://d3i4yxtzktqr9n.cloudfront.net/web-eats-v2/511904b5d7cd6881bc88882d4089e3bb.svg" width="12px" height="12px">
+      <img *ngIf="produto.type === 'nonveg'"
+        src="https://d3i4yxtzktqr9n.cloudfront.net/web-eats-v2/d049360b6709dd54ea5ff0689849db7a.svg" width="12px" height="12px">
       <div class="very-small-gap"></div>
-      <h1>{{data.name}}</h1>
+      <h1>{{produto.nome}}</h1>
     </div>
     <button mat-mini-fab color="default" (click)="onNoClick()">
       <mat-icon fontSet="material-icons-outlined" mat-icon-button class="icon">close</mat-icon>
     </button>
   </div>
   <div class="model-body">
+    <ng-template *ngFor="let grupo of grupos">
+        <div *ngIf="grupo.required;" class="instruction">
+          <span style="padding: 0px 20px;">{{grupo.nome}}:</span>
+          <mat-radio-group (changeRadio)="onChange($event)" [name]="grupo.nome">
+              <mat-radio-button  *ngFor="let opcao of grupo.opcoes" [name]="opcao.nome" style="padding: 0px 20px;" [checked]="false" [value]="opcao.preco">{{opcao.nome}}</mat-radio-button>
+          </mat-radio-group>
+        </div>
+    </ng-template>
+    <div *ngIf="produto.tamanhos.length > 0">
+      <div class="instruction">
+        <span style="padding: 0px 20px;">Tamanhos:</span>
+        <div>
+          <mat-radio-group (change)="onChange($event)" name="tamanhos">
+              <mat-radio-button  *ngFor="let tamanho of produto.tamanhos" [name]="tamanho.nome" style="padding: 0px 20px;" [checked]="false" [value]="tamanho.preco">{{tamanho.nome}}<mat-label>(+{{tamanho.preco}}€)</mat-label></mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+    </div>
     <div class="instruction">
-      <h3 style="padding: 0px 20px;">Special instructions</h3>
+      <h3 style="padding: 0px 20px;">Instruções extra</h3>
     </div>
     <div style="margin-top: 20px; padding: 0px 20px;">
       <mat-form-field class="full-width">
-        <textarea matInput placeholder="Leave a note for a kitchen"></textarea>
+        <textarea matInput placeholder="Deixe informaçoes para o entregador/restaurante"></textarea>
       </mat-form-field>
     </div>
   </div>
@@ -37,10 +53,10 @@
     </div>
     <div class="small-gap"></div>
     <button mat-raised-button class="full-width full-height success-background" (click)="addToCart()"
-      [mat-dialog-close]="data" cdkFocusInitial>
+      [mat-dialog-close]="produto" cdkFocusInitial>
       <div>
-        Add {{itemCount}} to order
-        <span style="float: right;">₹ {{itemCount * data.price}}</span>
+        Adicionar {{itemCount}} ao pedido
+        <span style="float: right;">{{(itemCount * produto.preco + itemCount * extra + optionPrice).toFixed(2)}} €</span>
       </div>
     </button>
   </div>

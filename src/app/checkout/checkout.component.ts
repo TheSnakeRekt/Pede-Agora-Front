@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginService } from '../services/login.service';
-import { User } from '../interfaces/Ilogin';
 import { CartService } from '../services/cart.service';
+import { ReadService } from '../services/read.service';
+import { Account } from '../definitions/Account';
+import { Cart } from '../definitions/Cart';
 
 @Component({
   selector: 'app-checkout',
@@ -11,28 +12,38 @@ import { CartService } from '../services/cart.service';
 })
 export class CheckoutComponent implements OnInit {
   quantityList = [1,2,3,4,5,6,7,8,9,10];
-  user: User;
-  cartItems = new Array();
+  conta: Account = null;
+  cart: Cart;
   constructor(private router: Router, 
-    public loginService: LoginService,
-    private cartService: CartService) {
+    private cartService: CartService,
+    private readService: ReadService) {
+
+
   }
 
   ngOnInit() {
-    this.cartService.cart.subscribe(res => {
-      this.cartItems = res;
+    this.readService.getAccount().subscribe(data=>{
+      if(data.access){
+        this.conta = data.account;
+      }
+    });
+    this.readService.getCart().subscribe(data=>{
+      this.cart = data;
     })
   }
+
   calculateTotalPriceOfCart () : number{
     let total = 0;
-    this.cartItems.forEach(element => {
-      total = total + (element.price * element.quantity);
+    this.cart.orders.forEach(element => {
+      total = total + (element.preco * element.quantidade);
     });
-    return total;
+    return Number.parseFloat(total.toFixed(2));
   }
+
   addToCart(item) {
     this.cartService.addToCart(item);
   }
+
   openLoginSideNav(){
    // this.helperService.loginSideNav.next(true);
   }

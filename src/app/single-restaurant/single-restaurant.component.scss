@@ -53,10 +53,17 @@
     .item:hover{
         border-bottom: 2px solid lightslategrey;
     }
+
+      
+
+    .mat-tab-group.mat-primary > .mat-ink-bar{
+        background-color: yellow;
+        height: 10px;
+    }  
+    
 }
 .menu-body{
     padding: 0px 75px;
     margin: 20px 0px;
 }
-
 

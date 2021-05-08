@@ -61,9 +61,10 @@ import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { AddItemModelComponent } from './single-restaurant/add-item-model/add-item-model.component';
 import { DelayInterceptor } from './services/delay-interceptor.service';
 import { StoreModule } from '@ngrx/store';
-import { reducer } from './reducers/account.reducer';
+import { reducerAccount } from './reducers/account.reducer';
 import { reducerSelectedRestaurant } from './reducers/selectedRestaurant.reducer';
 import { MealComponent } from './single-restaurant/meal/meal.component';
+import { reducerCart } from './reducers/cart.reducer';
 
 const skltnConfig: SkltnConfig = {
   rectRadius: 10,
@@ -96,8 +97,9 @@ const skltnConfig: SkltnConfig = {
     AppRoutingModule,
     BrowserAnimationsModule,
     StoreModule.forRoot({
-      account: reducer,
+      account: reducerAccount,
       selectedRestaurant: reducerSelectedRestaurant,
+      cart: reducerCart
     }),
     //material
     MatAutocompleteModule,

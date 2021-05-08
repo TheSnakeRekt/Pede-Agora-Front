@@ -17,8 +17,11 @@
     </ng-container>
 
     <ng-container>
-        <div class="box-wrapper" *ngFor="let item of produtos">
-            <img [src]="item.foto"/>
+        <div class="box-wrapper" *ngFor="let item of produtos" (click)="addItemDialog(item)">
+            <img *ngIf="item.foto; else fallback"[src]="item.foto"/>
+            <ng-template #fallback>
+                <img [src]="getFoto()"/>
+            </ng-template>
             <div class="box-content">
                 <a class="buy"><span><i class="icon"></i></span></a>
                 <div class="title">{{item.nome}}</div>
@@ -27,6 +30,4 @@
             </div>
         </div>
     </ng-container>
-
-
 </div>

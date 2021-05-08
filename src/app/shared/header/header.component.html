@@ -63,9 +63,9 @@
             <a mat-button [mdePopoverTriggerFor]="cartPopover" [mdePopoverOffsetX]="0" [mdePopoverOffsetY]="55"
                 mdePopoverTriggerOn="click" *ngIf="cartItems && cartItems.length > 0">
                 <div class="header-menu-box">
-                    <mat-icon fontSet="material-icons-outlined" class="success">work</mat-icon>
+                    <mat-icon fontSet="material-icons-outlined">shopping_cart</mat-icon>
                     <div class="micro-gap"></div>
-                    <span class="header-menu-text success ">{{cartItems.length}}</span>
+                    <span class="header-menu-text">{{cartItems.length}}</span>
                 </div>
             </a>
             <div class="very-small-gap"></div>
@@ -112,51 +112,13 @@
         </div>
     </div>
 </div>
-<mde-popover #appPopover="mdePopover" [mdePopoverCloseOnClick]="true">
-    <div class="popover">
-        <ul class="profile-dropdown">
-
-            <li [routerLink]="['/my-account/orders']" class="profile-dropdown-item" routerLinkActive="active">
-                <button mat-icon-button color="dark">
-                    <mat-icon fontSet="material-icons-outlined">receipt</mat-icon>
-                </button>
-                Orders
-            </li>
-            <li [routerLink]="['/my-account/favourites']" class="profile-dropdown-item" routerLinkActive="active">
-                <button mat-icon-button color="dark">
-                    <mat-icon fontSet="material-icons-outlined">favorite</mat-icon>
-                </button>
-                Favorites
-            </li>
-            <li [routerLink]="['/my-account/payments']" class="profile-dropdown-item" routerLinkActive="active">
-                <button mat-icon-button color="dark">
-                    <mat-icon fontSet="material-icons-outlined">credit_card</mat-icon>
-                </button>
-                Payment
-            </li>
-            <li [routerLink]="['/my-account/favourites']" class="profile-dropdown-item" routerLinkActive="active">
-                <button mat-icon-button color="dark">
-                    <mat-icon fontSet="material-icons-outlined">help</mat-icon>
-                </button>
-                help
-            </li>
-            <li [routerLink]="['/my-account']" class="profile-dropdown-item" routerLinkActive="active">
-                <button mat-icon-button color="dark">
-                    <mat-icon fontSet="material-icons-outlined">person</mat-icon>
-                </button>
-                Account
-            </li>
-            <li (click)="logout()" class="profile-dropdown-item" style="padding-left: 12px;;">Sign Out</li>
-        </ul>
-    </div>
-</mde-popover>
 <mde-popover #cartPopover="mdePopover" [mdePopoverCloseOnClick]="enableClosePopover">
     <div class="popover cart-card flex-column" *ngIf="cartItems && cartItems.length > 0">
         <div class="cart-card-header flex-with-space-between padding-horizontaly">
             <div class="flex-item-center">
-                <mat-icon fontSet="material-icons-outlined">work_outline</mat-icon>
+                <mat-icon fontSet="material-icons-outlined">shopping_cart</mat-icon>
                 <div class="very-small-gap"></div>
-                <h2>Your Order ({{cartItems.length}})</h2>
+                <h2>O Seu pedido ({{cartItems.length}})</h2>
             </div>
             <mat-icon fontSet="material-icons-outlined" (click)="closeCartPopover()">close</mat-icon>
         </div>
@@ -164,9 +126,9 @@
             <ul>
                 <li class="flex-with-space-between padding" *ngFor="let item of cartItems">
                     <div class="flex-item-center">
-                        <mat-form-field style="width: 60px; background: rgb(246, 246, 246);" color="dark">
-                            <mat-select style="text-align: center !important;" [(ngModel)]="item.quantity"
-                                (selectionChange)=addToCart(item)>
+                        <mat-form-field style="width: 30px; background: transparent" color="dark">
+                            <mat-select style="text-align: center !important;" [ngModel]="item.quantidade"
+                                (selectionChange)="addToCart($event, item)">
                                 <mat-option *ngFor="let quantityValue of quantityList" [value]="quantityValue"
                                     style="margin-left: 5px !important;">
                                     {{quantityValue}}
@@ -175,30 +137,25 @@
                         </mat-form-field>
                         <div class="small-gap"></div>
                         <div class="flex-column">
-                            <span> {{item.name}} </span>
-                            <a style="margin-top: 5px;" class="success">Edit </a>
+                            <span>{{item.nome}} </span>
+                            <a style="margin-top: 5px;" class="accent" (click)="removeFromCart(item)">Retirar </a>
                         </div>
                     </div>
-                    <span>₹ {{item.quantity * item.price}}</span>
+                    <span>{{item.preco * item.quantidade}} €</span>
                 </li>
             </ul>
         </div>
         <div class="cart-card-footer padding">
             <button mat-raised-button [routerLink]="['/checkout']" (click)="closeCartPopover()"  class="full-width full-height success-background ">
                 <div class="flex-with-space-between">
-                    <span style="border: 1px solid; width: 30px;">
-                        {{cartItems.length}}
+                    <span>
+                        Finalizar pedido
                     </span>
                     <span>
-                        Next: Checkout
-                    </span>
-                    <span>
-                        ₹ {{calculateTotalPriceOfCart()}}
+                        {{calculateTotalPriceOfCart()}} €
                     </span>
                 </div>
             </button>
         </div>
-
-
     </div>
 </mde-popover>
