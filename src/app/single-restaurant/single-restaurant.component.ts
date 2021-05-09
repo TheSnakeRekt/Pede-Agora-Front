@@ -54,6 +54,7 @@ export class SingleRestaurantComponent implements OnInit {
 
     this.restaurantService.getMeals(this.restId).subscribe(data=>{
       this.categorias = data;
+      console.log(data);
       if(this.categorias[0].grupos.length > 0){
         localStorage.setItem("Grupos", JSON.stringify(this.categorias[0].grupos));
       }
