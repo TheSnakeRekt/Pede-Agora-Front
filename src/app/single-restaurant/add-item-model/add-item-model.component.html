@@ -14,23 +14,54 @@
     </button>
   </div>
   <div class="model-body">
-    <ng-template *ngFor="let grupo of grupos">
+    <div *ngFor="let grupo of grupos">
         <div *ngIf="grupo.required;" class="instruction">
           <span style="padding: 0px 20px;">{{grupo.nome}}:</span>
           <mat-radio-group (changeRadio)="onChange($event)" [name]="grupo.nome">
-              <mat-radio-button  *ngFor="let opcao of grupo.opcoes" [name]="opcao.nome" style="padding: 0px 20px;" [checked]="false" [value]="opcao.preco">{{opcao.nome}}</mat-radio-button>
+              <mat-radio-button  *ngFor="let opcao of grupo.opcoes" [name]="opcao.nome" style="padding: 0px 20px;" [checked]="false" [value]="opcao">{{opcao.nome}}</mat-radio-button>
           </mat-radio-group>
         </div>
-    </ng-template>
+        <div *ngIf="!grupo.required;" class="instruction">
+          <span style="padding: 0px 20px;">{{grupo.nome}}:</span>
+          <mat-checkbox (changeRadio)="onChange($event)"  *ngFor="let opcao of grupo.opcoes" [name]="opcao.nome" style="padding: 0px 20px;" [checked]="false" [value]="opcao">{{opcao.nome}}<mat-label>(+{{opcao.preco}}€)</mat-label></mat-checkbox>
+        </div>
+    </div>
     <div *ngIf="produto.tamanhos.length > 0">
       <div class="instruction">
         <span style="padding: 0px 20px;">Tamanhos:</span>
         <div>
           <mat-radio-group (change)="onChange($event)" name="tamanhos">
-              <mat-radio-button  *ngFor="let tamanho of produto.tamanhos" [name]="tamanho.nome" style="padding: 0px 20px;" [checked]="false" [value]="tamanho.preco">{{tamanho.nome}}<mat-label>(+{{tamanho.preco}}€)</mat-label></mat-radio-button>
+              <mat-radio-button  *ngFor="let tamanho of produto.tamanhos" [name]="tamanho.nome" style="padding: 0px 20px;" [checked]="false" [value]="parseTamanho(tamanho)">{{tamanho.nome}}<mat-label>(+{{tamanho.preco}}€)</mat-label></mat-radio-button>
           </mat-radio-group>
         </div>
       </div>
+      <div *ngIf="subOptions">
+        <div class="options" *ngFor="let extra of extra.grupos">
+          <span style="padding: 15px 20px;">{{extra.nome}}</span>
+          <div *ngIf="extra.force_min > 0; else checkExtra">
+            <mat-radio-group (change)="onChangeExtra($event)" [name]="extra.nome">
+                <mat-radio-button  *ngFor="let opcao of extra.opcoes" [name]="opcao.nome" style="padding: 0px 20px;" [checked]="false" [value]="opcao">{{opcao.nome}}<mat-label>(+{{opcao.preco}}€)</mat-label></mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <ng-template #checkExtra>
+            <div>
+              <mat-checkbox (change)="onChangeCheckBox($event)" *ngFor="let opcao of extra.opcoes" [name]="opcao.nome" style="padding: 0px 20px;" [checked]="false" [value]="opcao">{{opcao.nome}}<mat-label>(+{{opcao.preco}}€)</mat-label></mat-checkbox>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="produto.grupos.length > 0">
+      <ng-container *ngFor="let grupo of produto.grupos">
+      <div class="instruction">
+        <span style="padding: 0px 20px;">{{grupo.nome}}:</span>
+        <div>
+          <mat-radio-group (change)="onChange($event)" name="tamanhos">
+              <mat-radio-button  *ngFor="let opcao of grupo.opcoes" [name]="opcao.nome" style="padding: 0px 20px;" [checked]="false" [value]="opcao">{{opcao.nome}}<mat-label>(+{{opcao.preco}}€)</mat-label></mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+    </ng-container>
     </div>
     <div class="instruction">
       <h3 style="padding: 0px 20px;">Instruções extra</h3>
@@ -56,7 +87,7 @@
       [mat-dialog-close]="produto" cdkFocusInitial>
       <div>
         Adicionar {{itemCount}} ao pedido
-        <span style="float: right;">{{(itemCount * produto.preco + itemCount * extra + optionPrice).toFixed(2)}} €</span>
+        <span style="float: right;">{{(itemCount * produto.preco + itemCount * extra.preco + optionPrice + extraPrice).toFixed(2)}} €</span>
       </div>
     </button>
   </div>

@@ -120,11 +120,30 @@ export class HeaderComponent implements OnInit {
     console.log(event);
   }
 
+  calcularItem(item):number{
+    let total = (item.preco + item.extras[1]) * item.quantidade;
+
+    if(item.extras[3].length > 0){
+      item.extras[3].forEach(extra=>{
+        total += extra.preco;
+      });
+    }
+
+    return total;
+  }
+
   calculateTotalPriceOfCart () : number{
     let total = 0;
+    
     this.cartItems.forEach(element => {
-      total = total + (element.preco * element.quantidade);
+      total += (element.preco + element.extras[1] * element.quantidade);
+      if(element.extras[3].length > 0){
+        element.extras[3].forEach(extra=>{
+          total += extra.preco;
+        });
+      }
     });
+    
     return total;
   }
 
@@ -134,7 +153,7 @@ export class HeaderComponent implements OnInit {
   }
 
   addToCart(event: MatSelectChange, item): void {
-    let newItem = Object.assign({},item);
+    let newItem = Object.assign({}, item);
     newItem.quantidade = event.value;
     this.writeService.updateItem(newItem);
   }

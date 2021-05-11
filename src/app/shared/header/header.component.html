@@ -137,11 +137,15 @@
                         </mat-form-field>
                         <div class="small-gap"></div>
                         <div class="flex-column">
-                            <span>{{item.nome}} </span>
+                            <span>{{item.nome}}</span>
+                            <div class="flex-column label-small" *ngIf="item.extras[0]">
+                                <mat-label>{{item.extras[0]}}<mat-label *ngIf="item.extras[3].length > 0"> + {{item.extras[3].length}} complemento(s)</mat-label></mat-label>
+                            </div>
                             <a style="margin-top: 5px;" class="accent" (click)="removeFromCart(item)">Retirar </a>
                         </div>
+                       
                     </div>
-                    <span>{{item.preco * item.quantidade}} €</span>
+                    <span>{{calcularItem(item).toFixed(2)}} €</span>
                 </li>
             </ul>
         </div>
@@ -152,7 +156,7 @@
                         Finalizar pedido
                     </span>
                     <span>
-                        {{calculateTotalPriceOfCart()}} €
+                        {{calculateTotalPriceOfCart().toFixed(2)}} €
                     </span>
                 </div>
             </button>

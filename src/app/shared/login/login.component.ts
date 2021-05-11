@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
 
       this.loginService.logIn(this.user).subscribe(data=>{
         
+        console.log(data);
         if(data.access){
           console.log(data);
           this.accountState.addAccount(data);

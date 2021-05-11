@@ -43,8 +43,9 @@ export class MealComponent implements OnDestroy {
   }
 
   addItemDialog(meal): void {
+
     const dialogRef = this.dialog.open(AddItemModelComponent, {
-      width: '650px',
+      width: '1000px',
       data: [meal, this.grupos]
     });
     dialogRef.afterClosed().subscribe(result => {
