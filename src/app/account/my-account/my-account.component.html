@@ -10,7 +10,7 @@
             </div>
             <div class="edit-button-container">
                 <div class="edit-button-box">
-                    <button mat-raised-button class="edit-button-text">Editar Informações</button>
+                    <button mat-raised-button class="edit-button-text" (click)="editPassword()">Modificar Password</button>
                 </div>
                 <div class="edit-button-box">
                     <button mat-raised-button class="edit-button-text" (click)="logout()">Logout</button>
@@ -21,7 +21,7 @@
             <div class="list-view">
                 <div class="list-box">
                     <ul>
-                        <li class="item" [ngClass]="{'active_item': currentRoute == 'orders' }" (click)="changeChildRoute('orders')" [routerLink]="['/my-account/orders']" routerLinkActive="active">
+                        <li class="item" [ngClass]="{'active_item': currentRoute == 'orders'}" (click)="changeChildRoute('orders')" [routerLink]="['/my-account/orders']" routerLinkActive="active">
                             <span class="text flex-item-center">
                                 <span style="transform: translateY(2px);">
                                     <mat-icon fontSet="material-icons-outlined" class="icon">
@@ -33,7 +33,7 @@
                                 </span>
                             </span>
                         </li>
-                        <li class="item" [ngClass]="{'active_item': currentRoute == 'favourites'}" (click)="changeChildRoute('favourites')"  [routerLink]="['/my-account/favourites']" routerLinkActive="active">
+                        <li class="item" [ngClass]="{'active_item': currentRoute == 'favourites'}" (click)="changeChildRoute('favourites')"  [routerLink]="['/my-account/favourites']" routerLinkActive="active" disabled>
                             <span class="text flex-item-center">
                                 <span style="transform: translateY(2px);">
                                     <mat-icon fontSet="material-icons-outlined" class="icon">
