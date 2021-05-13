@@ -1,7 +1,6 @@
 <div class="add-item-model-container">
   <div class="model-header">
     <div class="flex-item-center">
-
       <img *ngIf="produto.type === 'veg'"
         src="https://d3i4yxtzktqr9n.cloudfront.net/web-eats-v2/511904b5d7cd6881bc88882d4089e3bb.svg" width="12px" height="12px">
       <img *ngIf="produto.type === 'nonveg'"
@@ -14,36 +13,27 @@
     </button>
   </div>
   <div class="model-body">
-    <div *ngFor="let grupo of grupos">
-        <div *ngIf="grupo.required;" class="instruction">
-          <span style="padding: 0px 20px;">{{grupo.nome}}:</span>
-          <mat-radio-group (changeRadio)="onChange($event)" [name]="grupo.nome">
-              <mat-radio-button  *ngFor="let opcao of grupo.opcoes" [name]="opcao.nome" style="padding: 0px 20px;" [checked]="false" [value]="opcao">{{opcao.nome}}</mat-radio-button>
-          </mat-radio-group>
-        </div>
-        <div *ngIf="!grupo.required;" class="instruction">
-          <span style="padding: 0px 20px;">{{grupo.nome}}:</span>
-          <mat-checkbox (changeRadio)="onChange($event)"  *ngFor="let opcao of grupo.opcoes" [name]="opcao.nome" style="padding: 0px 20px;" [checked]="false" [value]="opcao">{{opcao.nome}}<mat-label>(+{{opcao.preco}}€)</mat-label></mat-checkbox>
-        </div>
-    </div>
-    <div *ngIf="produto.tamanhos.length > 0">
+    <div *ngIf="produto.tamanhos.length > 0; else grupos">
       <div class="instruction">
-        <span style="padding: 0px 20px;">Tamanhos:</span>
+        <span style="padding: 0px 20px;">*Tamanhos:</span>
         <div>
-          <mat-radio-group (change)="onChange($event)" name="tamanhos">
+          <mat-radio-group (change)="onChange($event)" name="tamanhos" [required]="true">
               <mat-radio-button  *ngFor="let tamanho of produto.tamanhos" [name]="tamanho.nome" style="padding: 0px 20px;" [checked]="false" [value]="parseTamanho(tamanho)">{{tamanho.nome}}<mat-label>(+{{tamanho.preco}}€)</mat-label></mat-radio-button>
           </mat-radio-group>
         </div>
       </div>
       <div *ngIf="subOptions">
         <div class="options" *ngFor="let extra of extra.grupos">
-          <span style="padding: 15px 20px;">{{extra.nome}}</span>
-          <div *ngIf="extra.force_min > 0; else checkExtra">
-            <mat-radio-group (change)="onChangeExtra($event)" [name]="extra.nome">
-                <mat-radio-button  *ngFor="let opcao of extra.opcoes" [name]="opcao.nome" style="padding: 0px 20px;" [checked]="false" [value]="opcao">{{opcao.nome}}<mat-label>(+{{opcao.preco}}€)</mat-label></mat-radio-button>
-            </mat-radio-group>
-          </div>
+          <ng-container *ngIf="extra.force_min > 0; else checkExtra">
+            <span style="padding: 15px 20px;">*{{extra.nome}}</span>
+            <div>
+              <mat-radio-group (change)="onChangeExtra($event)" [name]="extra.nome">
+                  <mat-radio-button  *ngFor="let opcao of extra.opcoes" [name]="opcao.nome" style="padding: 0px 20px;" [checked]="false" [value]="opcao">{{opcao.nome}}<mat-label>(+{{opcao.preco}}€)</mat-label></mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </ng-container>
           <ng-template #checkExtra>
+            <span style="padding: 15px 20px;">{{extra.nome}}</span>
             <div>
               <mat-checkbox (change)="onChangeCheckBox($event)" *ngFor="let opcao of extra.opcoes" [name]="opcao.nome" style="padding: 0px 20px;" [checked]="false" [value]="opcao">{{opcao.nome}}<mat-label>(+{{opcao.preco}}€)</mat-label></mat-checkbox>
             </div>
@@ -51,15 +41,35 @@
         </div>
       </div>
     </div>
+    <ng-template *ngFor="let grupo of grupos" #grupos>
+      <div *ngIf="grupo.required;" class="instruction">
+        <span style="padding: 0px 20px;">*{{grupo.nome}}:</span>
+        <mat-radio-group (changeRadio)="onChange($event)" [name]="grupo.nome" [required]="true">
+            <mat-radio-button  *ngFor="let opcao of grupo.opcoes" [name]="opcao.nome" style="padding: 0px 20px;" [checked]="false" [value]="opcao">{{opcao.nome}}</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div *ngIf="!grupo.required;" class="instruction">
+        <span style="padding: 0px 20px;">{{grupo.nome}}:</span>
+        <mat-checkbox (changeRadio)="onChange($event)"  *ngFor="let opcao of grupo.opcoes" [name]="opcao.nome" style="padding: 0px 20px;" [checked]="false" [value]="opcao">{{opcao.nome}}<mat-label>(+{{opcao.preco}}€)</mat-label></mat-checkbox>
+      </div>
+    </ng-template>
     <div *ngIf="produto.grupos.length > 0">
       <ng-container *ngFor="let grupo of produto.grupos">
       <div class="instruction">
-        <span style="padding: 0px 20px;">{{grupo.nome}}:</span>
-        <div>
-          <mat-radio-group (change)="onChange($event)" name="tamanhos">
-              <mat-radio-button  *ngFor="let opcao of grupo.opcoes" [name]="opcao.nome" style="padding: 0px 20px;" [checked]="false" [value]="opcao">{{opcao.nome}}<mat-label>(+{{opcao.preco}}€)</mat-label></mat-radio-button>
-          </mat-radio-group>
+        <div *ngIf="grupo.force_min > 0 && grupo.nome != 'Extras'; else checkExtraProduto">
+          <span style="padding: 0px 20px;">*{{grupo.nome}}</span>
+          <div>
+            <mat-radio-group (change)="onChange($event)" [name]="grupo.nome">
+                <mat-radio-button  *ngFor="let opcao of grupo.opcoes" [name]="opcao.nome" style="padding: 0px 20px;" [checked]="false" [value]="opcao">{{opcao.nome}}<mat-label>(+{{opcao.preco}}€)</mat-label></mat-radio-button>
+            </mat-radio-group>
+          </div>
         </div>
+        <ng-template #checkExtraProduto>
+          <span style="padding: 0px 20px;">{{grupo.nome}}</span>
+          <div>
+            <mat-checkbox (change)="onChangeCheckBox($event)" *ngFor="let opcao of grupo.opcoes" [name]="opcao.nome" style="padding: 0px 20px;" [checked]="false" [value]="opcao">{{opcao.nome}}<mat-label>(+{{opcao.preco}}€)</mat-label></mat-checkbox>
+          </div>
+        </ng-template>
       </div>
     </ng-container>
     </div>
@@ -84,7 +94,7 @@
     </div>
     <div class="small-gap"></div>
     <button mat-raised-button class="full-width full-height success-background" (click)="addToCart()"
-      [mat-dialog-close]="produto" cdkFocusInitial>
+      [mat-dialog-close]="produto" cdkFocusInitial id="addCartButton" [disabled]="isDisabled">
       <div>
         Adicionar {{itemCount}} ao pedido
         <span style="float: right;">{{(itemCount * produto.preco + itemCount * extra.preco + optionPrice + extraPrice).toFixed(2)}} €</span>

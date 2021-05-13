@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, Output, EventEmitter, Input } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { MatCheckboxChange, MatDialogRef, MatRadioButton, MatRadioChange, MAT_DIALOG_DATA } from '@angular/material';
+import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatCheckboxChange, MatDialogRef, MatRadioChange, MAT_DIALOG_DATA } from '@angular/material';
 import { CartService } from '../../services/cart.service';
 
 @Component({
@@ -14,6 +14,9 @@ export class AddItemModelComponent implements OnInit {
   itemCount = 1;
   produto;
   grupos;
+
+  @Input()
+  isDisabled: boolean = false;
 
   extra:any = {
     preco:0,
@@ -32,6 +35,8 @@ export class AddItemModelComponent implements OnInit {
   @Output()
   changeRadio: EventEmitter<MatRadioChange>
 
+  totalSelected: number = 0;
+
   constructor(
     public dialogRef: MatDialogRef<AddItemModelComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
@@ -39,11 +44,14 @@ export class AddItemModelComponent implements OnInit {
   ) {
     this.produto = Object.assign({}, data[0]); 
     this.grupos = [...data[1]]; 
-    console.log(this.grupos)
+
     if (this.produto.quantidade > 0) {
       this.itemCount = this.produto.quantidade;
     }
 
+    if(this.produto.tamanhos.length > 0){
+      this.isDisabled = true;
+    }
   }
 
   onNoClick(): void {
@@ -63,7 +71,15 @@ export class AddItemModelComponent implements OnInit {
     if(radio.value.grupos?.length > 0){
       this.subOptions = true;
     }
-    
+
+    this.totalSelected++;
+
+    if(this.subOptions){
+      this.isDisabled = true;
+    }else{
+      this.isDisabled = false;
+    }
+
     this.extra = radio.value;
   }
 
@@ -75,6 +91,11 @@ export class AddItemModelComponent implements OnInit {
     this.radioOption.forEach(data=>{
       this.extraPrice += data;
     });
+    this.totalSelected++;
+
+    if(this.subOptions && this.totalSelected > 2){
+      this.isDisabled = false;
+    }
   }
 
   parseTamanho(tamanho){
@@ -107,6 +128,7 @@ export class AddItemModelComponent implements OnInit {
   }
 
   addToCart() {
+    this.totalSelected = 0
     this.produto.quantidade = this.itemCount;
     this.produto.extras = [this.extra.nome, this.extra.preco , this.radioOption, this.options];
     this.cartService.addToCart(this.produto);
