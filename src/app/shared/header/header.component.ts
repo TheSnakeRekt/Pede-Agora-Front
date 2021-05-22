@@ -171,10 +171,10 @@ export class HeaderComponent implements OnInit {
   private loadToken(){
     this.readService.getAccount().subscribe(data=>{
       if(data){
-        let token: string = this.readService.extractToken(data);
+        let token: string = data.account?.token;
         if(token){
           this.loginService.validateToken(token).subscribe(data=>{
-            if(!data  || data.error){
+            if(!data || data.error || !data.account){
               this.router.navigate(['/login']);
             }
             data.account.token = token;

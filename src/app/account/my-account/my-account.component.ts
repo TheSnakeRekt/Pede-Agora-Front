@@ -22,9 +22,6 @@ export class MyAccountComponent implements OnInit {
     this.readService.getAccount().subscribe(data=>{
       this.AccountToken = data;
       this.account = data.account;
-
-
-      
     });
   }
 
