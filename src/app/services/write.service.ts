@@ -20,6 +20,10 @@ export class WriteService {
     this.store.dispatch(new AccountActions.AddAccount(account));
   }
 
+  addAddress(address: any){
+    this.store.dispatch(new AccountActions.AddAddress(address));
+  }
+
   selectRestaurant(restaurant: Restaurant){
     this.store.dispatch(new RestaurantActions.SelectRestaurant(restaurant))
   }

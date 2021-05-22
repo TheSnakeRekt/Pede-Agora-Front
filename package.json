@@ -30,6 +30,7 @@
     "ngx-skltn": "^1.0.8",
     "ngx-webstorage-service": "^4.1.0",
     "rxjs": "~6.6.7",
+    "sweetalert2": "^11.0.9",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
   },

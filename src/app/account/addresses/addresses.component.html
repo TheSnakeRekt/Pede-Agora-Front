@@ -5,11 +5,14 @@
     <div *ngFor="let morada of conta.moradas" class="address-box-card">
         <div class="address-box-header">
             <mat-icon fontSet="material-icons-outlined">{{morada.type}}</mat-icon>
-            <h3 style=" margin-left: 10px">{{morada.name}}</h3>
+            <h3 style="margin-left: 10px">{{morada.name}}</h3>
         </div>
         <div class="address-box-footer">
             <span>{{morada.rua}}</span>
             <div>{{morada.codigoPostal}} - {{morada.cidade}}</div>
         </div>
     </div>
+    <button mat-button (click)="createNewAddress()">
+        <mat-icon class="material-icons">add</mat-icon>
+    </button>
 </div>

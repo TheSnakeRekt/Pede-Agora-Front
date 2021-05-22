@@ -12,7 +12,6 @@ export class LoginService {
 
   logIn(user):Observable<AccountToken> {
     let token = localStorage.getItem("TOKEN");
-    console.log(user);
     
     return this.HttpClient.post<any>(`http://localhost:3000/login`, user, {headers:{'x-access-token': token ? token : ``}});
   }

@@ -1,0 +1,45 @@
+<div class="add-address-container">
+    <div class="model-header">
+        <h4>Adicionar uma nova Morada</h4>
+    </div>
+    <div class="model-body">
+        <form [formGroup]="newAddressForm">
+            <mat-form-field appearance="standard" class="input-box full-width" > 
+                <mat-label>Tipo de Morada</mat-label> 
+                <mat-select formControlName="type">
+                    <mat-option value="work">
+                        Trabalho
+                    </mat-option>
+                    <mat-option value="home">
+                        Casa
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="input-box full-width">  
+                <mat-label>Nome da morada</mat-label>  
+                <input matInput  formControlName="name">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="input-box full-width">  
+                <mat-label>Morada</mat-label>  
+                <input matInput  formControlName="rua">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="input-box full-width" >  
+                <mat-label>Cidade</mat-label>  
+                <input matInput formControlName="cidade">  
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="input-box full-width" >  
+                <mat-label>Cod-Postal</mat-label>  
+                <input matInput formControlName="codigoPostal">  
+            </mat-form-field>
+        </form>
+    </div>      
+    <div class="model-footer flex-item-center">
+        <div class="small-gap"></div>
+        <button mat-raised-button class="full-width full-height success-background" [mat-dialog-close]="true"
+          (click)="addAddress()" cdkFocusInitial>
+          <div>
+            Adicionar
+          </div>
+        </button>
+    </div>
+</div>

@@ -10,7 +10,20 @@ const initialState:AccountToken = {
 export function reducerAccount(state: AccountToken = initialState, action: AccountActions.Actions) {
     switch(action.type){
         case AccountActions.ADD_ACCOUNT:
+            localStorage.setItem("TOKEN", action.payload.account.token);
             return action.payload;
+        case AccountActions.ADD_ADDRESS:
+            return {
+                access:state.access,
+                account:{
+                    email: state.account.email,
+                    nif:state.account.nif,
+                    nome:state.account.nome,
+                    telefone:state.account.telefone,
+                    token:state.account.token,
+                    moradas:[...state.account.moradas, action.address],
+                }
+            };
         default:
             return state;
     }

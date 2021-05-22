@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
 import { WriteService } from '../../services/write.service';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-login',
@@ -34,15 +35,12 @@ export class LoginComponent implements OnInit {
       } 
 
       this.loginService.logIn(this.user).subscribe(data=>{
-        
-        console.log(data);
         if(data.access){
-          console.log(data);
           this.accountState.addAccount(data);
 
           this.router.navigate(["/home"]);
         }else{
-
+          Swal.fire('Login', 'Utilizador/password invalido', 'error');
         }
       })
     }

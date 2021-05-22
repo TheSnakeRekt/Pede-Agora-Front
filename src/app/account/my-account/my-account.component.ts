@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Account, AccountToken } from '../../definitions/Account';
+import { LoginService } from '../../services/login.service';
 import { ReadService } from '../../services/read.service';
 import { WriteService } from '../../services/write.service';
 import { ChangeInfoComponentComponent } from '../change-info-component/change-info-component.component';
@@ -17,14 +18,13 @@ export class MyAccountComponent implements OnInit {
 
   AccountToken: AccountToken;
   account: Account;
-  constructor(private router: Router, private matDialog: MatDialog, private readService: ReadService, private writeService: WriteService) { 
+  constructor(private router: Router, private matDialog: MatDialog, private readService: ReadService, private writeService: WriteService, private loginService:LoginService) { 
     this.readService.getAccount().subscribe(data=>{
       this.AccountToken = data;
-      console.log(data)
-      if(!this.AccountToken.access){
-        this.router.navigate(['/login']);
-      }
       this.account = data.account;
+
+
+      
     });
   }
 
@@ -64,7 +64,16 @@ export class MyAccountComponent implements OnInit {
   }
 
   ngOnInit() {
-  
+    if(!this.AccountToken.access){
+      this.loginService.validateToken(localStorage.getItem("TOKEN")).subscribe(data=>{
+        this.AccountToken = data;
+       
+        this.writeService.addAccount(data);
+        if(!this.AccountToken.access){
+          this.router.navigate(["/login"]);
+        }
+      });
+    }
   }
 
 }

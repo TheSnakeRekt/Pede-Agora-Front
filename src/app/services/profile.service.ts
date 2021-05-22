@@ -9,7 +9,7 @@ export class ProfileService {
   api = "http://localhost:3000";
 
   constructor(private httpClient: HttpClient) { }
-  getAddresses(): Observable<any>{
-   return this.httpClient.get(this.api+"/addresses");
+  addAddresse(address:any, token:string): Observable<any>{
+    return this.httpClient.post(this.api+"/address", address, {headers:{'x-access-token': token ? token : ``}});
   }
 }
