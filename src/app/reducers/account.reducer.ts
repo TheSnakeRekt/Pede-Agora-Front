@@ -24,6 +24,18 @@ export function reducerAccount(state: AccountToken = initialState, action: Accou
                     moradas:[...state.account.moradas, action.address],
                 }
             };
+        case AccountActions.REMOVE_ADDRESS:
+            return {
+                access:state.access,
+                account:{
+                    email: state.account.email,
+                    nif:state.account.nif,
+                    nome:state.account.nome,
+                    telefone:state.account.telefone,
+                    token:state.account.token,
+                    moradas:[...action.addresses],
+                }
+            };
         default:
             return state;
     }

@@ -4,8 +4,8 @@ import { ProfileService } from '../../../services/profile.service';
 import { ReadService } from '../../../services/read.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { WriteService } from '../../../services/write.service';
-import { Observable, Subscription } from 'rxjs';
-import { Account, AccountToken } from '../../../definitions/Account';
+import { Subscription } from 'rxjs';
+import { Account } from '../../../definitions/Account';
 
 @Component({
   selector: 'app-new-address',

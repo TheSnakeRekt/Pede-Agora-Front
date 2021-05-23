@@ -5,7 +5,7 @@ import { AppState } from '../app.state';
 import * as AccountActions from '../actions/account.action';
 import * as RestaurantActions from '../actions/restaurant.action';
 import * as  CartActions  from '../actions/cart.actions';
-import { AccountToken } from '../definitions/Account';
+import { AccountToken, Morada } from '../definitions/Account';
 import { Restaurant } from '../definitions/Restaurant';
 import { Cart } from '../definitions/Cart';
 
@@ -20,8 +20,12 @@ export class WriteService {
     this.store.dispatch(new AccountActions.AddAccount(account));
   }
 
-  addAddress(address: any){
+  addAddress(address: Morada){
     this.store.dispatch(new AccountActions.AddAddress(address));
+  }
+
+  removeAddress(addresses: Morada[]){
+    this.store.dispatch(new AccountActions.RemoveAddress(addresses));
   }
 
   selectRestaurant(restaurant: Restaurant){

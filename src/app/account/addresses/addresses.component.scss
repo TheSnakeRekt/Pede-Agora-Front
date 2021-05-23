@@ -34,5 +34,14 @@
         width:48px !important;
         font-size:48px !important;
     }
+
+    .remove-button{
+        display: flex;
+        align-content: flex-start;
+        justify-content: flex-end;
+        .material-icons-small{
+            max-width: 15px !important;
+        }
+    }
 }
 
