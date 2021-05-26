@@ -2,30 +2,30 @@
     <div class="model-header">
         <h4>Modificar Password</h4>
     </div>
-    <div class="model-body">
+    <div class="model-body" [formGroup]="newPasswordForm">
         <div>
             <mat-form-field appearance="outline" class="input-box full-width">  
                 <mat-label>Password anterior</mat-label>  
-                <input matInput type="password">  
+                <input matInput type="password" formControlName="oldPassword">  
             </mat-form-field>  
         </div>
         <div>
             <mat-form-field appearance="outline" class="input-box full-width">  
                 <mat-label>Password Nova</mat-label>  
-                <input matInput type="password">  
+                <input matInput type="password" formControlName="newPassword">  
             </mat-form-field>  
         </div>
         <div>
             <mat-form-field appearance="outline" class="input-box full-width">  
                 <mat-label>Repita a nova Password</mat-label>  
-                <input matInput type="password">  
+                <input matInput type="password" formControlName="passControl">  
             </mat-form-field >  
         </div>
     </div>
     <div class="model-footer flex-item-center">
         <div class="small-gap"></div>
         <button mat-raised-button class="full-width full-height success-background" 
-          [mat-dialog-close]="true" cdkFocusInitial>
+           cdkFocusInitial (click)="changePassword()">
           <div>
             Modificar
           </div>

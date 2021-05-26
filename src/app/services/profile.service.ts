@@ -15,6 +15,10 @@ export class ProfileService {
   }
 
   removeAddresse(address:Morada, token:string): Observable<any>{
-    return this.httpClient.delete(this.api+"/address", {headers:{'x-access-token': token ? token : ``},params:{address:address.name}});
+    return this.httpClient.delete(this.api+"/address", {headers:{'x-access-token': token ? token : ``}, params:{address:address.name}});
+  }
+
+  changePassword(oldPassword:string, newPassword:string, token:string): Observable<any>{
+    return this.httpClient.post(this.api+"/psw", {oldPassword:oldPassword, newPassword:newPassword}, {headers:{'x-access-token': token ? token : ``}});
   }
 }
