@@ -41,16 +41,18 @@ export class SheduledDeliverModelComponent implements OnInit {
 
   ngOnInit() {
 
+    let dayT = this.now.getDay();
+
     for(let i = 0; i < 7; i++){
       switch(i){
         case 0:
-          this.dates[i] = `Hoje, ${this.dateToPTDayOfWeek(this.now.getDay(), i)}, ${this.now.getDate()}, ${this.dateToPTMonth(this.now.getMonth())}`;
+          this.dates[i] = `Hoje, ${this.dateToPTDayOfWeek(dayT, i)}, ${this.now.getDate()} de ${this.dateToPTMonth(this.now.getMonth())}`;
           break;
         case 1:
-          this.dates[i] = `Amanhã, ${this.dateToPTDayOfWeek(this.now.getDay(), i)}, ${this.now.getDate() + i}, ${this.dateToPTMonth(this.now.getMonth())}`;
+          this.dates[i] = `Amanhã, ${this.dateToPTDayOfWeek(dayT, i)}, ${this.now.getDate() + i} de ${this.dateToPTMonth(this.now.getMonth())}`;
           break;
         default:
-          this.dates[i] = `${this.dateToPTDayOfWeek(this.now.getDay(), i)},  ${this.now.getDate()+i}, ${this.dateToPTMonth(this.now.getMonth())}`;
+          this.dates[i] = `${this.dateToPTDayOfWeek(dayT, i)},  ${this.now.getDate()+i} de ${this.dateToPTMonth(this.now.getMonth())}`;
           break;  
       }
     }
@@ -64,7 +66,7 @@ export class SheduledDeliverModelComponent implements OnInit {
 
   dateToPTDayOfWeek(day:number, currentCycle:number): string{
     if(day + currentCycle > 6){
-      day = currentCycle - day + 1 ;
+      day = (day - (day + 1)) + currentCycle ;
     }else{
       day = day + currentCycle;
     }
@@ -115,4 +117,5 @@ export class SheduledDeliverModelComponent implements OnInit {
         return "Dezembro"; 
     }
   }
+
 }
