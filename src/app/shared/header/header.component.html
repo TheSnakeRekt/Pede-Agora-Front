@@ -68,7 +68,7 @@
                 </div>
             </a>
             <div class="very-small-gap"></div>
-            <a mat-button *ngIf="loggedIn; else conta" [routerLink]="['/my-account']" routerLinkActive="active">
+            <a mat-button *ngIf="loggedIn; else conta" [routerLink]="['/my-account']" (click)="goToAccount()" routerLinkActive="active">
                 <div class="header-menu-box">
                     <mat-icon fontSet="material-icons-outlined" class="icon">person</mat-icon>
                     <div class="very-small-gap"></div>

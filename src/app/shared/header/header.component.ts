@@ -44,7 +44,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentRoute: string;
   searchVal: string = 'Pesquisar';
   loggedIn: boolean;
-  home:boolean = true;
+  home:boolean = false;
 
   searchBoxFC: FormControl = new FormControl('');
   mealLoadedSub: Subscription;
@@ -73,7 +73,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     });
   }
-  
+
   ngOnDestroy(): void {
     this.mealLoadedSub.unsubscribe();
   }
@@ -217,6 +217,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       }
     });
+  }
+
+  goToAccount(){
+    this.home = false;
   }
   
 }

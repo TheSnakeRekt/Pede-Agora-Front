@@ -29,7 +29,6 @@ export class MyAccountComponent implements OnInit {
     this.currentRoute = name;
   }
 
-
   logout(){
     this.AccountToken = {
       access:false,
