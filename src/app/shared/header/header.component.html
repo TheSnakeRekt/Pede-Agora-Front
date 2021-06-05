@@ -84,30 +84,33 @@
                     </div>
                 </a>
             </ng-template>
-            <button mat-button (click)="searchButtonToggle()" *ngIf="!searchInputBoxEnable" class="hide-mobile-view">
-                <div class="header-menu-box">
-                    <mat-icon fontSet="material-icons-outlined" class="icon">search</mat-icon>
-                    <div class="very-small-gap"></div>
-                    <span class="header-menu-text">Pesquisar</span>
-                </div>
-            </button>
-            <mat-form-field style="margin-top: 10px;" *ngIf="searchInputBoxEnable" (keyup)="searchInput()"
-                floatLabel="never">
-                <input matInput type="text" placeholder="O que lhe apetece" 
-                    [matAutocomplete]="auto" style=" padding-bottom: 5px; font-size: 14px;" [formControl]='searchBoxFC'>
-                <mat-icon fontSet="material-icons-outlined" matPrefix mat-icon-button class="icon"
-                    style="margin-right: 5px;">access_time</mat-icon>
-                <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="searchButtonToggle()" >
-                    <mat-icon style="padding-bottom: 5px;">close</mat-icon>
+            <ng-container *ngIf="home">            
+                <button mat-button (click)="searchButtonToggle()" *ngIf="!searchInputBoxEnable" class="hide-mobile-view">
+                    <div class="header-menu-box">
+                        <mat-icon fontSet="material-icons-outlined" class="icon">search</mat-icon>
+                        <div class="very-small-gap"></div>
+                        <span class="header-menu-text">{{searchVal}}</span>
+                    </div>
                 </button>
-                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                    <mat-option *ngFor="let food of searchableFoods" [value]="food" (click)="searchInput()">
-                        <mat-icon fontSet="material-icons-outlined" mat-icon-button class="icon"
-                            style="margin-right: 5px;">access_time</mat-icon>
-                        <span>{{food}}</span>
-                    </mat-option>
-                </mat-autocomplete>
-            </mat-form-field>
+                <mat-form-field style="margin-top: 10px;" *ngIf="searchInputBoxEnable" (keyup)="searchInput()"
+                    floatLabel="never">
+                    <input matInput type="text" placeholder="O que lhe apetece" 
+                        [matAutocomplete]="auto" style=" padding-bottom: 5px; font-size: 14px;" [formControl]='searchBoxFC'>
+                    <mat-icon fontSet="material-icons-outlined" matPrefix mat-icon-button class="icon"
+                        style="margin-right: 5px;">access_time</mat-icon>
+                    <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="searchButtonToggle()" >
+                        <mat-icon style="padding-bottom: 5px;">close</mat-icon>
+                    </button>
+                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                        <mat-option *ngFor="let food of searchableFoods" [value]="food" (click)="searchInput()">
+                            <mat-icon fontSet="material-icons-outlined" mat-icon-button class="icon"
+                                style="margin-right: 5px;">access_time</mat-icon>
+                            <span>{{food}}</span>
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </ng-container>
+
         </div>
     </div>
 </div>

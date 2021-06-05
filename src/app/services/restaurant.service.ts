@@ -12,7 +12,9 @@ export class RestaurantService {
   private subject = new Subject<any>();
 
   constructor(private httpClient: HttpClient) { }
+
   getRestaurants(): Observable<any>{
+   this.subject.next({home:true});
    return this.httpClient.get(this.api+"/restaurantes");
   }
   
@@ -21,6 +23,7 @@ export class RestaurantService {
   }
 
   getMeals(id:number): Observable<any> {
+    this.subject.next({home:false});
     return this.httpClient.get(this.api+"/restaurantes/"+id+"/meals/");
   }
 
@@ -40,7 +43,11 @@ export class RestaurantService {
     return this.subject.asObservable();
   }
 
-  filter(rests: Array<String>){
-    this.subject.next(rests);
+  onMealsLoaded(): Observable<any>{
+    return this.subject.asObservable();
+  }
+
+  filter(tags: Array<String>){
+    this.subject.next({filter: tags});
   }
 }

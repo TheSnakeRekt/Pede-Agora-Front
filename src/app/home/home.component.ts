@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   restaurantes:Restaurant[] = new Array();
   loaderRestaurant = new Array(3);
@@ -23,11 +23,11 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.loadRestaurantes();
 
-    this.filterSub = this.restaurantService.onFilteredRestaurants().subscribe(filter=>{
+    this.filterSub = this.restaurantService.onFilteredRestaurants().subscribe(res=>{
       
-        let filtered = [];
+       let filtered = [];
 
-       filter.forEach(val=>{
+       res.filter?.forEach(val=>{
           filtered = this.restaurantes.filter(rest=>{
             
             return rest.tags.filter(tag=>{
@@ -41,8 +41,11 @@ export class HomeComponent implements OnInit {
         if(!filtered.length){
           this.loadRestaurantes()
         }
-        this.loadRestaurantesFiltered(filtered, filter);
+
+        this.loadRestaurantesFiltered(filtered, res.filter);
     });
+
+  
   }
 
   goToRestaurant(id:number){
@@ -56,8 +59,14 @@ export class HomeComponent implements OnInit {
         return true
       }
     }
+
     return false;
   }
+
+  ngOnDestroy(): void {
+    this.filterSub.unsubscribe();
+  }
+
 
   private loadRestaurantes(){
     this.restaurantService.getRestaurants().subscribe(res=>{

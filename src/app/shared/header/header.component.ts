@@ -1,22 +1,21 @@
-import { Component, OnInit, ViewChildren, QueryList, Injectable, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, OnDestroy} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog, MatSelectChange } from '@angular/material';
 import { SheduledDeliverModelComponent } from '../sheduled-deliver-model/sheduled-deliver-model.component';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { MdePopoverTrigger } from '@material-extended/mde';
 import { RestaurantService } from '../../services/restaurant.service';
 import { LoginService } from '../../services/login.service';
 import { WriteService } from '../../services/write.service';
 import { ReadService } from '../../services/read.service';
 import { Account } from '../../definitions/Account';
-import { HomeComponent } from '../../home/home.component';
-
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChildren(MdePopoverTrigger) trigger: QueryList<MdePopoverTrigger>;
   user: Account;
   quantityList = [1,2,3,4,5,6,7,8,9,10];
@@ -43,10 +42,12 @@ export class HeaderComponent implements OnInit {
   deliveryDate: string;
   deliveryTime: string;
   currentRoute: string;
+  searchVal: string = 'Pesquisar';
   loggedIn: boolean;
+  home:boolean = true;
 
   searchBoxFC: FormControl = new FormControl('');
-  
+  mealLoadedSub: Subscription;
 
   constructor(
     public dialog: MatDialog,
@@ -63,6 +64,18 @@ export class HeaderComponent implements OnInit {
         }
       }
     );
+
+    this.home = true;
+
+   this.mealLoadedSub = this.restaurantService.onMealsLoaded().subscribe(val=>{
+      if(typeof val.home != "undefined"){
+        this.home = val.home;
+      }
+    });
+  }
+  
+  ngOnDestroy(): void {
+    this.mealLoadedSub.unsubscribe();
   }
 
   ngOnInit() {  
@@ -72,6 +85,9 @@ export class HeaderComponent implements OnInit {
     this.readService.getCart().subscribe(data=>{
       this.cartItems = data.orders;
     })
+
+
+
   }
 
   selectDefaultAddress(listOfAddresses) {
@@ -93,13 +109,20 @@ export class HeaderComponent implements OnInit {
     this.searchInputBoxEnable = !this.searchInputBoxEnable;
 
     if(!this.searchInputBoxEnable){
-      this.restaurantService.filter([])
+      this.searchVal = 'Pesquisar';
+      this.searchBoxFC.setValue('');
+      this.searchInput();
     }
   }
 
   searchInput(){
     this.searchableFoods = this.restaurantService.getTags().filter(tag => tag.includes(this.searchBoxFC.value));
-    this.restaurantService.filter(this.searchableFoods)
+    this.restaurantService.filter(this.searchableFoods);
+    this.searchVal = this.searchBoxFC.value;
+
+    if(this.searchVal == ''){
+      this.searchVal = 'Pesquisar';
+    }
   }
 
   deliveryTimeSelectionChange() {
