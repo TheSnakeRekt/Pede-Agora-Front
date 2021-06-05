@@ -1,17 +1,15 @@
-import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { Component, OnInit, ViewChildren, QueryList, Injectable, ViewChild, ElementRef } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatDialog, MatSelectChange } from '@angular/material';
 import { SheduledDeliverModelComponent } from '../sheduled-deliver-model/sheduled-deliver-model.component';
-import { element } from 'protractor';
-import { Router, ActivatedRoute, UrlSegment, NavigationEnd } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { MdePopoverTrigger } from '@material-extended/mde';
-import { User } from '../../interfaces/Ilogin';
 import { RestaurantService } from '../../services/restaurant.service';
 import { LoginService } from '../../services/login.service';
-import { Console } from 'node:console';
 import { WriteService } from '../../services/write.service';
 import { ReadService } from '../../services/read.service';
 import { Account } from '../../definitions/Account';
+import { HomeComponent } from '../../home/home.component';
 
 @Component({
   selector: 'app-header',
@@ -47,10 +45,12 @@ export class HeaderComponent implements OnInit {
   currentRoute: string;
   loggedIn: boolean;
 
+  searchBoxFC: FormControl = new FormControl('');
+  
+
   constructor(
     public dialog: MatDialog,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
     private restaurantService: RestaurantService,
     private loginService: LoginService,
     private writeService: WriteService,
@@ -91,10 +91,19 @@ export class HeaderComponent implements OnInit {
   searchButtonToggle() {
     this.searchableFoods = this.restaurantService.getTags().slice(0,5);
     this.searchInputBoxEnable = !this.searchInputBoxEnable;
+
+    if(!this.searchInputBoxEnable){
+      this.restaurantService.filter([])
+    }
   }
 
-  deliveryTimeSelectionChange(event) {
-    if (this.selectedDeliveryTime.title == "Scheduler For Later") {
+  searchInput(){
+    this.searchableFoods = this.restaurantService.getTags().filter(tag => tag.includes(this.searchBoxFC.value));
+    this.restaurantService.filter(this.searchableFoods)
+  }
+
+  deliveryTimeSelectionChange() {
+    if (this.selectedDeliveryTime.title == "Planear pra mais tarde") {
       this.openDialog();
     }
   }

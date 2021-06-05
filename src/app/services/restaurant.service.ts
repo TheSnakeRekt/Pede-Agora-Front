@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -9,6 +9,7 @@ export class RestaurantService {
 
   api = "http://localhost:3000";
   tags: Array<string>;
+  private subject = new Subject<any>();
 
   constructor(private httpClient: HttpClient) { }
   getRestaurants(): Observable<any>{
@@ -33,5 +34,13 @@ export class RestaurantService {
 
   getRecommendsItems(): Observable<any> {
     return this.httpClient.get(this.api+"/meals");
+  }
+
+  onFilteredRestaurants(): Observable<any>{
+    return this.subject.asObservable();
+  }
+
+  filter(rests: Array<String>){
+    this.subject.next(rests);
   }
 }

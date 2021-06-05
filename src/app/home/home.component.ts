@@ -3,6 +3,7 @@ import { RestaurantService } from '../services/restaurant.service';
 import { Router } from '@angular/router';
 import { Restaurant } from '../definitions/Restaurant';
 import { WriteService } from '../services/write.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -14,18 +15,33 @@ export class HomeComponent implements OnInit {
   restaurantes:Restaurant[] = new Array();
   loaderRestaurant = new Array(3);
   tags = new Array();
+  filterSub: Subscription;
+
   constructor(private restaurantService: RestaurantService, private router: Router, private writeService: WriteService) { }
  
 
   ngOnInit() {
-    this.restaurantService.getRestaurants().subscribe(res=>{
-      this.restaurantes = res.reverse();
-      this.tags = [...new Set([].concat(...this.restaurantes.map((rest)=>{
-        return rest.tags.map(tag=>{
-          return tag.trim()
+    this.loadRestaurantes();
+
+    this.filterSub = this.restaurantService.onFilteredRestaurants().subscribe(filter=>{
+      
+        let filtered = [];
+
+       filter.forEach(val=>{
+          filtered = this.restaurantes.filter(rest=>{
+            
+            return rest.tags.filter(tag=>{
+              if(tag.toLowerCase().trim() == val.toLowerCase().trim()){
+                return rest;
+              }
+            })
+          });
         })
-      })))];
-      this.restaurantService.setTags(this.tags);
+       
+        if(!filtered.length){
+          this.loadRestaurantes()
+        }
+        this.loadRestaurantesFiltered(filtered, filter);
     });
   }
 
@@ -41,5 +57,23 @@ export class HomeComponent implements OnInit {
       }
     }
     return false;
+  }
+
+  private loadRestaurantes(){
+    this.restaurantService.getRestaurants().subscribe(res=>{
+      this.restaurantes = res.reverse();
+      this.tags = [...new Set([].concat(...this.restaurantes.map((rest)=>{
+        return rest.tags.map(tag=>{
+          return tag.trim();
+        })
+      })))];
+      this.restaurantService.setTags(this.tags);
+    });
+  }
+
+  
+  private loadRestaurantesFiltered(rests, filter){
+    this.tags = filter;
+    this.restaurantes = rests;
   }
 }

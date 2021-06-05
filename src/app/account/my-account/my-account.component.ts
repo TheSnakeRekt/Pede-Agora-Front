@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { Account, AccountToken } from '../../definitions/Account';
 import { LoginService } from '../../services/login.service';
 import { ReadService } from '../../services/read.service';
@@ -48,15 +48,6 @@ export class MyAccountComponent implements OnInit {
     const dialogRef = this.matDialog.open(ChangeInfoComponentComponent, {
       width: '400px',
       data: this.account
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      // if (result) {
-      //   this.deliveryDate = result.deliveryDate;
-      //   this.deliveryTime = result.deliveryTime;
-      //   this.selectedDeliveryTime.data = result.deliveryDate + ' ' + result.deliveryTime;
-      // } else {
-      //   this.selectedDeliveryTime = this.deliveryTimeSelection[0];
-      // }
     });
   }
 

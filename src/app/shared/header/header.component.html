@@ -38,7 +38,7 @@
 
             <div class="small-gap"></div>
             <mat-form-field class="hide-mobile-view" appearance="none" style="min-width: 190px; margin-top: 10px;">
-                <mat-select [(ngModel)]="selectedDeliveryTime" (selectionChange)="deliveryTimeSelectionChange($event)">
+                <mat-select [(ngModel)]="selectedDeliveryTime" (selectionChange)="deliveryTimeSelectionChange()">
                     <mat-select-trigger>
                         <div class="header-menu-box" style="white-space: initial;">
                             <mat-icon fontSet="material-icons-outlined" class="icon">{{selectedDeliveryTime.icon}}
@@ -50,7 +50,6 @@
                             <span class="header-menu-text" *ngIf="!selectedDeliveryTime.data">
                                 {{selectedDeliveryTime.title}}
                             </span>
-
                         </div>
                     </mat-select-trigger>
                     <mat-option *ngFor="let time of deliveryTimeSelection" [value]="time">
@@ -92,17 +91,17 @@
                     <span class="header-menu-text">Pesquisar</span>
                 </div>
             </button>
-            <mat-form-field style="margin-top: 10px;" *ngIf="searchInputBoxEnable" (keyup.enter)="searchButtonToggle()" 
+            <mat-form-field style="margin-top: 10px;" *ngIf="searchInputBoxEnable" (keyup)="searchInput()"
                 floatLabel="never">
-                <input matInput type="text" placeholder="O que lhe apetece" (blur)="searchButtonToggle()"
-                    [matAutocomplete]="auto" style=" padding-bottom: 5px; font-size: 14px;">
+                <input matInput type="text" placeholder="O que lhe apetece" 
+                    [matAutocomplete]="auto" style=" padding-bottom: 5px; font-size: 14px;" [formControl]='searchBoxFC'>
                 <mat-icon fontSet="material-icons-outlined" matPrefix mat-icon-button class="icon"
                     style="margin-right: 5px;">access_time</mat-icon>
-                <button mat-button matSuffix mat-icon-button aria-label="Clear">
+                <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="searchButtonToggle()" >
                     <mat-icon style="padding-bottom: 5px;">close</mat-icon>
                 </button>
                 <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                    <mat-option *ngFor="let food of searchableFoods" [value]="food">
+                    <mat-option *ngFor="let food of searchableFoods" [value]="food" (click)="searchInput()">
                         <mat-icon fontSet="material-icons-outlined" mat-icon-button class="icon"
                             style="margin-right: 5px;">access_time</mat-icon>
                         <span>{{food}}</span>
