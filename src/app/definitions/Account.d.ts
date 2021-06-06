@@ -14,7 +14,9 @@ export interface Account {
     email: string,
     nif: string,
     moradas: Morada[],
-    token: string
+    token: string,
+    verified: boolean,
+    verifiedMail: boolean,
 }
 
 export interface Morada{

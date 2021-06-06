@@ -67,6 +67,8 @@ import { MealComponent } from './single-restaurant/meal/meal.component';
 import { reducerCart } from './reducers/cart.reducer';
 import { ChangeInfoComponentComponent } from './account/change-info-component/change-info-component.component';
 import { NewAddressComponent } from './account/addresses/new-address/new-address.component';
+import { PopUpComponent } from './shared/pop-up/pop-up.component';
+import { ValidateAccountComponent } from './shared/pop-up/validate-account/validate-account.component';
 
 const skltnConfig: SkltnConfig = {
   rectRadius: 10,
@@ -93,7 +95,9 @@ const skltnConfig: SkltnConfig = {
     AddItemModelComponent,
     MealComponent,
     ChangeInfoComponentComponent,
-    NewAddressComponent
+    NewAddressComponent,
+    PopUpComponent,
+    ValidateAccountComponent
   ],
   imports: [
     FormsModule,

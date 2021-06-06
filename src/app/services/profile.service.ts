@@ -21,4 +21,12 @@ export class ProfileService {
   changePassword(oldPassword:string, newPassword:string, token:string): Observable<any>{
     return this.httpClient.post(this.api+"/psw", {oldPassword:oldPassword, newPassword:newPassword}, {headers:{'x-access-token': token ? token : ``}});
   }
+
+  validateAccount(code:string, token:string): Observable<any>{
+    return this.httpClient.post(this.api+"/validateNumber", {code}, {headers:{'x-access-token': token ? token : ``}})
+  }
+
+  requestCode(token:string): Observable<any>{
+    return this.httpClient.post(this.api+"/phoneverify", {}, {headers:{'x-access-token': token ? token : ``}})
+  }
 }

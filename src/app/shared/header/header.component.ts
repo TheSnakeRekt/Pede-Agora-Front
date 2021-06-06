@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChildren, QueryList, OnDestroy} from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatDialog, MatSelectChange } from '@angular/material';
+import { MatDialog, MatSelectChange, MatSnackBar } from '@angular/material';
 import { SheduledDeliverModelComponent } from '../sheduled-deliver-model/sheduled-deliver-model.component';
 import { Router, NavigationEnd } from '@angular/router';
 import { MdePopoverTrigger } from '@material-extended/mde';
@@ -10,6 +10,8 @@ import { WriteService } from '../../services/write.service';
 import { ReadService } from '../../services/read.service';
 import { Account } from '../../definitions/Account';
 import { Subscription } from 'rxjs';
+import { PopUpComponent } from '../pop-up/pop-up.component';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -56,6 +58,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private loginService: LoginService,
     private writeService: WriteService,
     private readService: ReadService,
+    private snackBar: MatSnackBar
   ) { 
     this.router.events.subscribe(
       (event: any) => {
@@ -213,6 +216,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
             this.user = data.account;
             this.loggedIn = true;
             this.firstName = this.user.nome.split(' ')[0].trim();
+
+            if(!data.account.verified){
+              this.snackBar.openFromComponent(PopUpComponent,{data:{msg:'A sua conta não está verificada !', action:'Verificar Conta'}})
+            }
           });
         }
       }
