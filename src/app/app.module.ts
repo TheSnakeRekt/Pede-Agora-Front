@@ -69,6 +69,7 @@ import { ChangeInfoComponentComponent } from './account/change-info-component/ch
 import { NewAddressComponent } from './account/addresses/new-address/new-address.component';
 import { PopUpComponent } from './shared/pop-up/pop-up.component';
 import { ValidateAccountComponent } from './shared/pop-up/validate-account/validate-account.component';
+import { PaymeComponent } from './checkout/payme/payme.component';
 
 const skltnConfig: SkltnConfig = {
   rectRadius: 10,
@@ -97,7 +98,8 @@ const skltnConfig: SkltnConfig = {
     ChangeInfoComponentComponent,
     NewAddressComponent,
     PopUpComponent,
-    ValidateAccountComponent
+    ValidateAccountComponent,
+    PaymeComponent
   ],
   imports: [
     FormsModule,

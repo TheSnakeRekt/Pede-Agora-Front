@@ -5,6 +5,8 @@ import { ReadService } from '../services/read.service';
 import { Account } from '../definitions/Account';
 import { Cart } from '../definitions/Cart';
 import { WriteService } from '../services/write.service';
+import { MatDialog } from '@angular/material';
+import { PaymeComponent } from './payme/payme.component';
 
 @Component({
   selector: 'app-checkout',
@@ -15,11 +17,11 @@ export class CheckoutComponent implements OnInit {
   quantityList = [1,2,3,4,5,6,7,8,9,10];
   conta: Account = null;
   cart: Cart;
+  
   constructor(private router: Router, 
     private writeService: WriteService,
-    private readService: ReadService) {
-
-
+    private readService: ReadService,
+    private matDialog:MatDialog) {
   }
 
   ngOnInit() {
@@ -73,6 +75,12 @@ export class CheckoutComponent implements OnInit {
     return total;
   }
 
+  paypalPayment(){
+    this.matDialog.open(PaymeComponent, {
+      width: '400px',
+      height: '350px'
+    })
+  }
   openLoginSideNav(){
    // this.helperService.loginSideNav.next(true);
   }

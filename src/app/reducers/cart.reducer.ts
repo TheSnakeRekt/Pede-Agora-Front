@@ -4,6 +4,7 @@ import { Cart } from '../definitions/Cart';
 const initialState: Cart = {
     tracker : '',
     orders : new Array(),
+    
 }
 
 export function reducerCart(state: Cart = initialState, action: CartActions.Actions) {

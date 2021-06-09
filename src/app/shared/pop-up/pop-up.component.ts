@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatSnackBarRef, MAT_SNACK_BAR_DATA } from '@angular/material';
 import { ValidateAccountComponent } from './validate-account/validate-account.component';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
