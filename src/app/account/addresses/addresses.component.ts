@@ -42,4 +42,8 @@ export class AddressesComponent implements OnInit {
       }
     });
   }
+
+  selectAddress(morada: Morada){
+    this.writeService.selectAddress(morada);
+  }
 }

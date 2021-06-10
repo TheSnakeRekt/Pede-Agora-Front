@@ -17,9 +17,10 @@ export interface Account {
     token: string,
     verified: boolean,
     verifiedMail: boolean,
+    selectedMorada ?: Morada
 }
 
-export interface Morada{
+export interface Morada {
     type: string;
     name: string;
     rua: string,
@@ -28,5 +29,6 @@ export interface Morada{
     distrito: string,
     pais: string,
     latitude: string,
-    longitude: string
+    longitude: string,
+    default:boolean
 }

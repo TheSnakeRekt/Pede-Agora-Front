@@ -4,6 +4,7 @@ import { AccountToken, Morada } from '../definitions/Account';
 export const ADD_ACCOUNT = `[ACCOUNT] Add`;
 export const ADD_ADDRESS = `[ACCOUNT/ADDRESS] Add`;
 export const REMOVE_ADDRESS = `[ACCOUNT/ADDRESS] Remove`;
+export const SELECT_ADDRESS = `[ACCOUNT/ADDRESS] Set`
 
 export const STORAGE_KEYS = {
   account: `ACCOUNT`,
@@ -33,4 +34,12 @@ export class RemoveAddress implements Action {
   }
 }
 
-export type Actions = AddAccount | AddAddress | RemoveAddress ;
+export class SelectAddress implements Action {
+
+  readonly type = SELECT_ADDRESS;
+
+  constructor(public address: Morada){
+  }
+}
+
+export type Actions = AddAccount | AddAddress | RemoveAddress | SelectAddress;

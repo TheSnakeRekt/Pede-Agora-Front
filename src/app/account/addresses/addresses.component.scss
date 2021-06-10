@@ -8,6 +8,8 @@
         padding: 20px;
         border: 1px solid lightgray;
         width: 280px;
+        transition: 100ms linear;
+        cursor: pointer; 
         .address-box-header{
             display: flex;
             align-items: center;
@@ -43,5 +45,30 @@
             max-width: 15px !important;
         }
     }
+
+    .mat-button {
+        transition: color 0.3s ease;
+        .material-icons{
+            transition: color 0.3s ease;
+        }
+    }
+
+    
+    
+    .mat-button .clear:hover{
+        color: red;
+    }
+
+    .material-icons:hover{
+        color: rgb(111, 221, 101);
+    }
+
+    .address-box-card:hover {
+        transform: scale(1.04);
+    }
 }
 
+.yellow-icon {
+    color: rgb(255, 224, 47);
+    border: #93959f;
+}

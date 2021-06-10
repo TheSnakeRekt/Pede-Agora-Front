@@ -8,7 +8,7 @@ import { RestaurantService } from '../../services/restaurant.service';
 import { LoginService } from '../../services/login.service';
 import { WriteService } from '../../services/write.service';
 import { ReadService } from '../../services/read.service';
-import { Account } from '../../definitions/Account';
+import { Account, Morada } from '../../definitions/Account';
 import { Subscription } from 'rxjs';
 import { PopUpComponent } from '../pop-up/pop-up.component';
 
@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   cartItems = new Array();
   selectedDeliveryTime: any;
-  selectedAddress: any;
+  selectedAddress: Morada;
   selectedSearchFood: any;
 
   firstName: string;
@@ -50,6 +50,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   searchBoxFC: FormControl = new FormControl('');
   mealLoadedSub: Subscription;
+  accountServiceSub: Subscription;
 
   constructor(
     public dialog: MatDialog,
@@ -70,15 +71,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.home = true;
 
-   this.mealLoadedSub = this.restaurantService.onMealsLoaded().subscribe(val=>{
+    this.mealLoadedSub = this.restaurantService.onMealsLoaded().subscribe(val=>{
       if(typeof val.home != "undefined"){
         this.home = val.home;
+      }
+    });
+
+    this.accountServiceSub = this.readService.getAccount().subscribe(accountToken=>{
+      if(accountToken.access){
+        this.selectedAddress = accountToken.account.selectedMorada ? accountToken.account.selectedMorada : this.selectDefaultAddress(accountToken.account.moradas);
       }
     });
   }
 
   ngOnDestroy(): void {
     this.mealLoadedSub.unsubscribe();
+    this.accountServiceSub.unsubscribe();
   }
 
   ngOnInit() {  
@@ -93,12 +101,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   }
 
-  selectDefaultAddress(listOfAddresses) {
-    listOfAddresses.forEach(element => {
-      if (element.default) {
-        this.selectedAddress = element;
+  selectDefaultAddress(listOfAddresses: Morada[]) {
+    for(let i = 0; i < listOfAddresses.length; i++){
+      if(listOfAddresses[i].default){
+        return listOfAddresses[i];
       }
-    });
+    }
   }
 
   inputAddressBoxEnable = false;

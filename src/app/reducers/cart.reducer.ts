@@ -1,10 +1,13 @@
 import * as  CartActions  from '../actions/cart.actions';
+import { Account } from '../definitions/Account';
 import { Cart } from '../definitions/Cart';
+import { Restaurant } from '../definitions/Restaurant';
 
 const initialState: Cart = {
     tracker : '',
     orders : new Array(),
-    
+    restaurante : {} as Restaurant,
+    cliente : {} as Account
 }
 
 export function reducerCart(state: Cart = initialState, action: CartActions.Actions) {

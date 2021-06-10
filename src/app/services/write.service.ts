@@ -28,6 +28,10 @@ export class WriteService {
     this.store.dispatch(new AccountActions.RemoveAddress(addresses));
   }
 
+  selectAddress(address:Morada){
+    this.store.dispatch(new AccountActions.SelectAddress(address))
+  }
+
   selectRestaurant(restaurant: Restaurant){
     this.store.dispatch(new RestaurantActions.SelectRestaurant(restaurant))
   }

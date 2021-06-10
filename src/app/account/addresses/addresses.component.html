@@ -3,13 +3,14 @@
 </div>
 <div class="address-box-container">
     <div *ngFor="let morada of conta.moradas" class="address-box-card">
-       
-        <div class="address-box-header" style="display:flex; justify-content: space-between">
-            <mat-icon fontSet="material-icons-outlined">{{morada.type}}</mat-icon>
-            <h3 style="margin-left: 10px">{{morada.name}}</h3>
-            <button mat-button (click)="removeAddress(morada)"><i class="material-icons-outlined">clear</i></button>
+        <div class="address-box-header" style="display:flex; justify-content: space-between" >
+            <ng-container (click)='selectAddress(morada)'>
+                <mat-icon fontSet="material-icons-outlined">{{morada.type}}</mat-icon>
+                <h3 style="margin-left: 10px">{{morada.name}}</h3>
+            </ng-container>
+            <button mat-button (click)="removeAddress(morada)"><i class="material-icons-outlined clear">clear</i></button>
         </div>
-        <div class="address-box-footer">
+        <div class="address-box-footer" (click)='selectAddress(morada)'>
             <span>{{morada.rua}}</span>
             <div>{{morada.codigoPostal}} - {{morada.cidade}}</div>
         </div>
