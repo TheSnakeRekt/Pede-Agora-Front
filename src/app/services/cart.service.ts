@@ -28,5 +28,5 @@ export class CartService {
   addToCart(item) {
    this.writeService.addItem(this.cart, item);
   }
-
+  
 }

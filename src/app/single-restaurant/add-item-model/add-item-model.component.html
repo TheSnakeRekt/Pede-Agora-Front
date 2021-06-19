@@ -13,7 +13,7 @@
     </button>
   </div>
   <div class="model-body">
-    <div *ngIf="produto.tamanhos.length > 0; else grupos">
+    <div *ngIf='produto.tamanhos.length > 0'>
       <div class="instruction">
         <span style="padding: 0px 20px;">*Tamanhos:</span>
         <div>
@@ -41,7 +41,7 @@
         </div>
       </div>
     </div>
-    <ng-template *ngFor="let grupo of grupos" #grupos>
+    <ng-template *ngFor="let grupo of grupos" #gruposTemp>
       <div *ngIf="grupo.required;" class="instruction">
         <span style="padding: 0px 20px;">*{{grupo.nome}}:</span>
         <mat-radio-group (changeRadio)="onChange($event)" [name]="grupo.nome" [required]="true">
@@ -94,7 +94,7 @@
     </div>
     <div class="small-gap"></div>
     <button mat-raised-button class="full-width full-height success-background" (click)="addToCart()"
-      [mat-dialog-close]="produto" cdkFocusInitial id="addCartButton" [disabled]="isDisabled">
+      [mat-dialog-close]="produto" id="addCartButton" [disabled]="isDisabled">
       <div>
         Adicionar {{itemCount}} ao pedido
         <span style="float: right;">{{(itemCount * produto.preco + itemCount * extra.preco + optionPrice + extraPrice).toFixed(2)}} €</span>

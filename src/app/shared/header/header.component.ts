@@ -95,10 +95,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.selectedAddress = this.deliveryAddresses[0];
     this.readService.getCart().subscribe(data=>{
       this.cartItems = data.orders;
-    })
-
-
-
+    });
   }
 
   selectDefaultAddress(listOfAddresses: Morada[]) {
@@ -159,10 +156,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
-  deliveryAddressChange(event) {
-    console.log(event);
-  }
-
   calcularItem(item):number{
     let total = (item.preco + item.extras[1]) * item.quantidade;
 
@@ -179,7 +172,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     let total = 0;
     
     this.cartItems.forEach(element => {
-      total += (element.preco + element.extras[1] * element.quantidade);
+      if(element.extras.length > 1){
+        total += (element.preco + element.extras[1] * element.quantidade);
+      }else{
+        total += element.preco;
+      }
+      
       if(element.extras[3].length > 0){
         element.extras[3].forEach(extra=>{
           total += extra.preco;

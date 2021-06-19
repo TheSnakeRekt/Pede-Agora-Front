@@ -2,15 +2,15 @@
     <h1>Gerir Moradas</h1>
 </div>
 <div class="address-box-container">
-    <div *ngFor="let morada of conta.moradas" class="address-box-card">
+    <div *ngFor="let morada of conta.moradas" class="address-box-card" (click)='selectAddress(morada)'>
         <div class="address-box-header" style="display:flex; justify-content: space-between" >
-            <ng-container (click)='selectAddress(morada)'>
+            <ng-container >
                 <mat-icon fontSet="material-icons-outlined">{{morada.type}}</mat-icon>
                 <h3 style="margin-left: 10px">{{morada.name}}</h3>
             </ng-container>
             <button mat-button (click)="removeAddress(morada)"><i class="material-icons-outlined clear">clear</i></button>
         </div>
-        <div class="address-box-footer" (click)='selectAddress(morada)'>
+        <div class="address-box-footer" >
             <span>{{morada.rua}}</span>
             <div>{{morada.codigoPostal}} - {{morada.cidade}}</div>
         </div>

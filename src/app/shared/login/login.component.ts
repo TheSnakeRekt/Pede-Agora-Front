@@ -36,8 +36,9 @@ export class LoginComponent implements OnInit {
 
       this.loginService.logIn(this.user).subscribe(data=>{
         if(data.access){
+          data.account.selectedMorada = data.account.moradas[0];
+          
           this.accountState.addAccount(data);
-
           this.router.navigate(["/home"]);
         }else{
           Swal.fire('Login', 'Utilizador/password invalido', 'error');
