@@ -111,9 +111,16 @@
                                     </div>
                                     <a style="margin-top: 5px;" class="accent" (click)="removeFromCart(item)">Retirar </a>
                                 </div>
-                               
                             </div>
                             <span>{{calcularItem(item).toFixed(2)}} €</span>
+                        </li>
+                    </ul>
+                    <ul *ngIf="entrega > 0">
+                        <li class="flex-with-space-between padding">
+                            <div class="flex-item-center">
+                                <span>Entrega: </span>
+                            </div>
+                            <mat-label>{{entrega}} €</mat-label>
                         </li>
                     </ul>
                 </div>
@@ -132,6 +139,5 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>

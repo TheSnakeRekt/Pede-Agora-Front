@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material';
 import { PaymeComponent } from './payme/payme.component';
 import { OrdersService } from '../services/orders.service';
 import { Subscription } from 'rxjs';
+import { Restaurant } from '../definitions/Restaurant';
 
 @Component({
   selector: 'app-checkout',
@@ -19,6 +20,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   conta: Account = null;
   cart: Cart;
   subs: Subscription[] = [];
+  selectedRestaurant: Restaurant;
+  entrega: number = 0;
 
   constructor(private router: Router, 
     private writeService: WriteService,
@@ -42,6 +45,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
           this.conta = data.account;
 
           let sub3 = this.readService.getSelectedRestaurant().subscribe(restaurant=>{
+            this.selectedRestaurant = restaurant;
             this.getDeliveryPrice(restaurant);
           });
 
@@ -62,8 +66,21 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   addFee(item): void {
-    let newItem = Object.assign({}, item);
-    this.writeService.updateItem(newItem);
+    console.log(item);
+    
+    let km1 = this.selectedRestaurant.zonas[0] / 1000;
+    let km2 = this.selectedRestaurant.zonas[1] / 1000;
+    let km3 = this.selectedRestaurant.zonas[2] / 1000;
+
+    console.log(km1,km2,km3);
+
+    if(km3 < item){
+      this.entrega = 3;
+    }else if(item < km1){
+      this.entrega = 2;
+    } else{
+      this.entrega = 1.5;
+    }
   }
 
   removeFromCart(item){
@@ -76,15 +93,20 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     let total = 0;
     
     this.cart.orders.forEach(element => {
-      total += (element.preco + element.extras[1] * element.quantidade);
-      if(element.extras[3].length > 0){
+      if(element.extras && element.extras.length > 1){
+        total += (element.preco + element.extras[1] * element.quantidade);
+      }else{
+        total += element.preco;
+      }
+      
+      if(element.extras && element.extras[3].length > 0){
         element.extras[3].forEach(extra=>{
           total += extra.preco;
         });
       }
     });
     
-    return total;
+    return total + this.entrega;
   }
 
   

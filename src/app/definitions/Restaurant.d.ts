@@ -12,4 +12,5 @@ export interface Restaurant{
     logo:string;
     desktop_widget:string;
     cdn:string;
+    zonas:number[];
 }
